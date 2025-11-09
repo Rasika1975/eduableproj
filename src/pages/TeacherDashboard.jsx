@@ -1,238 +1,198 @@
+import { useState } from 'react';
 import { useApp } from '../contexts/AppContext';
 import Card from '../components/Card';
 import ProgressBar from '../components/ProgressBar';
-import { Users, BookOpen, Upload, TrendingUp, CheckCircle, Clock } from 'lucide-react';
+import { Users, BookOpen, Upload, TrendingUp, Clock } from 'lucide-react';
 
 const TeacherDashboard = () => {
   const { userName } = useApp();
+  const [activeTab, setActiveTab] = useState('overview');
 
   const students = [
-    { id: 1, name: 'Alex Johnson', progress: 85, status: 'active', lessons: 12 },
-    { id: 2, name: 'Emma Davis', progress: 92, status: 'active', lessons: 15 },
-    { id: 3, name: 'Michael Chen', progress: 68, status: 'needs-help', lessons: 9 },
-    { id: 4, name: 'Sophia Williams', progress: 78, status: 'active', lessons: 11 },
-    { id: 5, name: 'Oliver Brown', progress: 95, status: 'excellent', lessons: 16 },
+    { id: 1, name: 'Emma Johnson', grade: 5, progress: 85 },
+    { id: 2, name: 'Michael Chen', grade: 4, progress: 72 },
+    { id: 3, name: 'Sofia Rodriguez', grade: 6, progress: 91 },
+    { id: 4, name: 'James Williams', grade: 5, progress: 68 },
+    { id: 5, name: 'Olivia Martinez', grade: 4, progress: 79 },
+    { id: 6, name: 'Noah Davis', grade: 6, progress: 88 },
   ];
-
-  const recentUploads = [
-    { id: 1, title: 'Math: Fractions Worksheet', date: '2 hours ago' },
-    { id: 2, title: 'Science: Water Cycle Video', date: 'Yesterday' },
-    { id: 3, title: 'English: Vocabulary Quiz', date: '3 days ago' },
-  ];
+  const getInitials = (name) => name.split(' ').map(n => n[0]).join('');
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 pb-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="mb-8">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-800 dark:text-white mb-2">
-            Welcome, {userName} 👩‍🏫
-          </h1>
-          <p className="text-lg text-gray-600 dark:text-gray-300">
-            Here's an overview of your students' progress
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+      {/* Page Header */}
+      <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <h1 className="text-3xl font-bold">Teacher Dashboard</h1>
+          <p className="text-gray-500 dark:text-gray-400 mt-1">
+            Welcome back, {userName || 'Teacher'}
           </p>
         </div>
+      </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <Card className="bg-gradient-to-br from-blue-500 to-blue-600 text-white">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-blue-100 text-sm mb-1">Total Students</p>
-                <p className="text-3xl font-bold">24</p>
-              </div>
-              <Users className="w-12 h-12 text-blue-200" />
-            </div>
-          </Card>
-
-          <Card className="bg-gradient-to-br from-green-500 to-green-600 text-white">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-green-100 text-sm mb-1">Active Lessons</p>
-                <p className="text-3xl font-bold">18</p>
-              </div>
-              <BookOpen className="w-12 h-12 text-green-200" />
-            </div>
-          </Card>
-
-          <Card className="bg-gradient-to-br from-yellow-500 to-orange-500 text-white">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-yellow-100 text-sm mb-1">Avg. Progress</p>
-                <p className="text-3xl font-bold">84%</p>
-              </div>
-              <TrendingUp className="w-12 h-12 text-yellow-200" />
-            </div>
-          </Card>
-
-          <Card className="bg-gradient-to-br from-purple-500 to-purple-600 text-white">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-purple-100 text-sm mb-1">Completions</p>
-                <p className="text-3xl font-bold">156</p>
-              </div>
-              <CheckCircle className="w-12 h-12 text-purple-200" />
-            </div>
-          </Card>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2 space-y-6">
-            <Card>
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-2xl font-bold text-gray-800 dark:text-white flex items-center">
-                  <Users className="w-6 h-6 mr-2 text-blue-500" />
-                  Student Progress
-                </h2>
-                <button className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg text-sm font-medium transition">
-                  View All
-                </button>
-              </div>
-              <div className="space-y-4">
-                {students.map((student) => (
-                  <div
-                    key={student.id}
-                    className="p-4 bg-gray-50 dark:bg-gray-700 rounded-xl hover:shadow-md transition-shadow"
-                  >
-                    <div className="flex items-center justify-between mb-3">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full flex items-center justify-center text-white font-bold">
-                          {student.name.charAt(0)}
-                        </div>
-                        <div>
-                          <h3 className="font-semibold text-gray-800 dark:text-white">
-                            {student.name}
-                          </h3>
-                          <p className="text-sm text-gray-500 dark:text-gray-400">
-                            {student.lessons} lessons completed
-                          </p>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <p className="text-2xl font-bold text-gray-800 dark:text-white">
-                          {student.progress}%
-                        </p>
-                        <span className={`text-xs px-2 py-1 rounded-full ${
-                          student.status === 'excellent' ? 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300' :
-                          student.status === 'active' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300' :
-                          'bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-300'
-                        }`}>
-                          {student.status === 'excellent' ? 'Excellent' :
-                           student.status === 'active' ? 'Active' : 'Needs Help'}
-                        </span>
-                      </div>
-                    </div>
-                    <ProgressBar progress={student.progress} color={
-                      student.status === 'excellent' ? 'green' :
-                      student.status === 'active' ? 'blue' : 'yellow'
-                    } />
-                  </div>
-                ))}
-              </div>
-            </Card>
-
-            <Card>
-              <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6 flex items-center">
-                <Upload className="w-6 h-6 mr-2 text-green-500" />
-                Upload New Lesson
-              </h2>
-              <form className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Lesson Title
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Enter lesson title"
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Subject
-                  </label>
-                  <select className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                    <option>Math</option>
-                    <option>English</option>
-                    <option>Science</option>
-                    <option>Art</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Upload File
-                  </label>
-                  <div className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-6 text-center hover:border-blue-500 transition cursor-pointer">
-                    <Upload className="w-8 h-8 text-gray-400 mx-auto mb-2" />
-                    <p className="text-sm text-gray-600 dark:text-gray-400">
-                      Click to upload or drag and drop
-                    </p>
-                    <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
-                      PDF, DOC, or Video (Max 50MB)
-                    </p>
-                  </div>
-                </div>
-                <button
-                  type="button"
-                  className="w-full px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-lg font-medium transition"
-                >
-                  Upload Lesson
-                </button>
-              </form>
-            </Card>
-          </div>
-
-          <div className="space-y-6">
-            <Card>
-              <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4 flex items-center">
-                <Clock className="w-6 h-6 mr-2 text-blue-500" />
-                Recent Uploads
-              </h2>
-              <div className="space-y-3">
-                {recentUploads.map((upload) => (
-                  <div
-                    key={upload.id}
-                    className="p-3 bg-gray-50 dark:bg-gray-700 rounded-lg hover:shadow-md transition-shadow cursor-pointer"
-                  >
-                    <p className="text-sm font-medium text-gray-800 dark:text-white mb-1">
-                      {upload.title}
-                    </p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
-                      {upload.date}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </Card>
-
-            <Card className="bg-gradient-to-br from-blue-500 to-purple-600 text-white">
-              <h3 className="text-xl font-bold mb-2">Weekly Summary</h3>
-              <div className="space-y-3 mt-4">
-                <div className="flex justify-between items-center">
-                  <span className="text-blue-100 text-sm">Lessons Uploaded</span>
-                  <span className="font-bold text-lg">12</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-blue-100 text-sm">Student Interactions</span>
-                  <span className="font-bold text-lg">248</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-blue-100 text-sm">Avg. Completion Rate</span>
-                  <span className="font-bold text-lg">87%</span>
-                </div>
-              </div>
-            </Card>
-
-            <Card className="bg-gradient-to-br from-yellow-500 to-orange-500 text-white">
-              <h3 className="text-xl font-bold mb-2">⚠️ Attention Needed</h3>
-              <p className="text-sm text-yellow-100 mb-3">
-                3 students need extra support this week
-              </p>
-              <button className="w-full px-4 py-2 bg-white text-orange-600 rounded-lg font-medium hover:bg-orange-50 transition">
-                View Details
-              </button>
-            </Card>
-          </div>
+      {/* Navigation Tabs */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 border-b border-gray-200 dark:border-gray-700">
+        <div className="flex gap-4">
+          <button
+            onClick={() => setActiveTab('overview')}
+            className={`px-4 py-3 font-semibold ${
+              activeTab === 'overview'
+                ? 'border-b-2 border-blue-600 text-blue-600 dark:text-blue-400'
+                : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-t-md'
+            }`}
+          >
+            Overview
+          </button>
+          <button
+            onClick={() => setActiveTab('students')}
+            className={`px-4 py-3 font-semibold ${
+              activeTab === 'students'
+                ? 'border-b-2 border-blue-600 text-blue-600 dark:text-blue-400'
+                : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-t-md'
+            }`}
+          >
+            Students
+          </button>
+          <button
+            onClick={() => setActiveTab('upload')}
+            className={`px-4 py-3 font-semibold ${
+              activeTab === 'upload'
+                ? 'border-b-2 border-blue-600 text-blue-600 dark:text-blue-400'
+                : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-t-md'
+            }`}
+          >
+            Upload Content
+          </button>
         </div>
       </div>
+
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {activeTab === 'overview' && (
+          <div className="space-y-8">
+            {/* Main Stats */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <Card>
+                <div className="flex justify-between items-start">
+                  <div>
+                    <p className="text-gray-500 dark:text-gray-400 text-sm">Total Students</p>
+                    <h2 className="text-3xl font-bold mt-1">156</h2>
+                    <p className="text-green-600 text-sm mt-1">+12 this month</p>
+                  </div>
+                  <Users className="text-gray-400 w-8 h-8" />
+                </div>
+              </Card>
+
+              <Card>
+                <div className="flex justify-between items-start">
+                  <div>
+                    <p className="text-gray-500 dark:text-gray-400 text-sm">Lessons Created</p>
+                    <h2 className="text-3xl font-bold mt-1">42</h2>
+                    <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">This semester</p>
+                  </div>
+                  <BookOpen className="text-gray-400 w-8 h-8" />
+                </div>
+              </Card>
+
+              <Card>
+                <div className="flex justify-between items-start">
+                  <div>
+                    <p className="text-gray-500 dark:text-gray-400 text-sm">Avg. Completion</p>
+                    <h2 className="text-3xl font-bold mt-1">78%</h2>
+                    <p className="text-green-600 text-sm mt-1">+5%</p>
+                  </div>
+                  <TrendingUp className="text-gray-400 w-8 h-8" />
+                </div>
+              </Card>
+
+              <Card>
+                <div className="flex justify-between items-start">
+                  <div>
+                    <p className="text-gray-500 dark:text-gray-400 text-sm">Learning Hours</p>
+                    <h2 className="text-3xl font-bold mt-1">1,234</h2>
+                    <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">This month</p>
+                  </div>
+                  <Clock className="text-gray-400 w-8 h-8" />
+                </div>
+              </Card>
+            </div>
+
+            {/* Student Progress List */}
+            <Card>
+              <h2 className="text-xl font-bold mb-4">Student Progress</h2>
+              <div className="space-y-5">
+                {students.map((student) => (
+                  <div key={student.id} className="grid grid-cols-5 items-center gap-4">
+                    <p className="font-semibold col-span-2 sm:col-span-1 truncate">{student.name}</p>
+                    <div className="col-span-3 sm:col-span-4 flex items-center gap-3">
+                      <ProgressBar progress={student.progress} />
+                      <span className="font-bold text-gray-700 dark:text-gray-300 w-12 text-right">{student.progress}%</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Card>
+          </div>
+        )}
+
+        {activeTab === 'students' && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {students.map((student) => (
+              <Card key={student.id}>
+                <div className="flex flex-col items-center text-center">
+                  <div className="w-20 h-20 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mb-4">
+                    <span className="text-2xl font-bold text-blue-600 dark:text-blue-300">{getInitials(student.name)}</span>
+                  </div>
+                  <h3 className="text-lg font-bold">{student.name}</h3>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Grade {student.grade}</p>
+                  <div className="my-4">
+                    <p className="text-sm text-gray-500 dark:text-gray-400">Overall Progress</p>
+                    <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">{student.progress}%</p>
+                  </div>
+                  <button className="w-full px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition">
+                    View Details
+                  </button>
+                </div>
+              </Card>
+            ))}
+          </div>
+        )}
+
+        {activeTab === 'upload' && (
+          <Card>
+            <div className="max-w-2xl mx-auto">
+              <h2 className="text-2xl font-bold mb-2">Upload New Lesson</h2>
+              <p className="text-gray-600 dark:text-gray-400 mb-6">Create and share educational content with your students</p>
+              <form className="space-y-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Lesson Title</label>
+                  <input type="text" placeholder="Enter lesson title" className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:ring-2 focus:ring-blue-500" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Description</label>
+                  <textarea placeholder="Describe what students will learn" rows="4" className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 focus:ring-2 focus:ring-blue-500"></textarea>
+                </div>
+                <div>
+                  <div className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-6 text-center hover:border-blue-500 transition cursor-pointer">
+                    <Upload className="w-8 h-8 text-gray-400 mx-auto mb-2" />
+                    <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Click to upload files</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                      PDF, DOC, PPT up to 10MB
+                    </p>
+                  </div>
+                </div>
+                <div>
+                  <button
+                    type="submit"
+                    className="w-full px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition"
+                  >
+                    Upload Lesson
+                  </button>
+                </div>
+              </form>
+            </div>
+          </Card>
+        )}
+      </main>
     </div>
   );
 };

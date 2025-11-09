@@ -1,9 +1,11 @@
+import { useState } from 'react';
 import { useApp } from '../contexts/AppContext';
 import Card from '../components/Card';
 import ProgressBar from '../components/ProgressBar';
-import { User, TrendingUp, Calendar, MessageSquare, Award, Clock } from 'lucide-react';
+import { User, TrendingUp, Calendar, MessageSquare, Award, Clock, Star } from 'lucide-react';
 
 const ParentDashboard = () => {
+  const [activeTab, setActiveTab] = useState('overview');
   const { userName } = useApp();
 
   const childProgress = [
@@ -26,191 +28,129 @@ const ParentDashboard = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-yellow-50 to-green-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 pb-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="mb-8">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-800 dark:text-white mb-2">
-            Welcome, {userName} 👨‍👩‍👧
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+      {/* Page Header */}
+      <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <h1 className="text-3xl font-bold">
+            Welcome, {userName}
           </h1>
-          <p className="text-lg text-gray-600 dark:text-gray-300">
+          <p className="text-gray-500 dark:text-gray-400 mt-1">
             Track Alex's learning journey and progress
           </p>
         </div>
+      </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <Card className="bg-gradient-to-br from-blue-500 to-blue-600 text-white">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-blue-100 text-sm mb-1">Overall Progress</p>
-                <p className="text-3xl font-bold">81%</p>
-              </div>
-              <TrendingUp className="w-12 h-12 text-blue-200" />
-            </div>
-          </Card>
-
-          <Card className="bg-gradient-to-br from-green-500 to-green-600 text-white">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-green-100 text-sm mb-1">Attendance</p>
-                <p className="text-3xl font-bold">95%</p>
-              </div>
-              <Calendar className="w-12 h-12 text-green-200" />
-            </div>
-          </Card>
-
-          <Card className="bg-gradient-to-br from-yellow-500 to-orange-500 text-white">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-yellow-100 text-sm mb-1">Badges Earned</p>
-                <p className="text-3xl font-bold">12</p>
-              </div>
-              <Award className="w-12 h-12 text-yellow-200" />
-            </div>
-          </Card>
-
-          <Card className="bg-gradient-to-br from-purple-500 to-purple-600 text-white">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-purple-100 text-sm mb-1">Study Time</p>
-                <p className="text-3xl font-bold">18h</p>
-              </div>
-              <Clock className="w-12 h-12 text-purple-200" />
-            </div>
-          </Card>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2 space-y-6">
-            <Card>
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-2xl font-bold text-gray-800 dark:text-white flex items-center">
-                  <User className="w-6 h-6 mr-2 text-blue-500" />
-                  Alex's Progress by Subject
-                </h2>
-              </div>
-              <div className="space-y-4">
-                {childProgress.map((subject) => (
-                  <div
-                    key={subject.id}
-                    className="p-4 bg-gray-50 dark:bg-gray-700 rounded-xl"
-                  >
-                    <div className="flex items-center justify-between mb-3">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full flex items-center justify-center text-white font-bold text-lg">
-                          {subject.subject.charAt(0)}
-                        </div>
-                        <div>
-                          <h3 className="font-semibold text-gray-800 dark:text-white">
-                            {subject.subject}
-                          </h3>
-                          <p className="text-sm text-gray-500 dark:text-gray-400">
-                            Current Grade: {subject.grade}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <span className="text-2xl font-bold text-gray-800 dark:text-white">
-                          {subject.progress}%
-                        </span>
-                        {subject.trend === 'up' && (
-                          <TrendingUp className="w-5 h-5 text-green-500" />
-                        )}
-                      </div>
-                    </div>
-                    <ProgressBar progress={subject.progress} color="blue" />
-                  </div>
-                ))}
-              </div>
-            </Card>
-
-            <Card>
-              <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4 flex items-center">
-                <MessageSquare className="w-6 h-6 mr-2 text-green-500" />
-                Teacher Feedback
-              </h2>
-              <div className="space-y-4">
-                {recentFeedback.map((feedback) => (
-                  <div
-                    key={feedback.id}
-                    className="p-4 bg-gray-50 dark:bg-gray-700 rounded-xl"
-                  >
-                    <div className="flex items-start justify-between mb-2">
-                      <div>
-                        <h3 className="font-semibold text-gray-800 dark:text-white">
-                          {feedback.teacher}
-                        </h3>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">
-                          {feedback.subject}
-                        </p>
-                      </div>
-                      <span className="text-xs text-gray-500 dark:text-gray-400">
-                        {feedback.date}
-                      </span>
-                    </div>
-                    <p className="text-sm text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-600 p-3 rounded-lg">
-                      "{feedback.message}"
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </Card>
-          </div>
-
-          <div className="space-y-6">
-            <Card>
-              <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4 flex items-center">
-                <Calendar className="w-6 h-6 mr-2 text-blue-500" />
-                Upcoming Activities
-              </h2>
-              <div className="space-y-3">
-                {upcomingActivities.map((activity) => (
-                  <div
-                    key={activity.id}
-                    className="p-3 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-700 dark:to-gray-600 rounded-lg"
-                  >
-                    <h3 className="font-semibold text-gray-800 dark:text-white mb-1">
-                      {activity.title}
-                    </h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">
-                      {activity.date} at {activity.time}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </Card>
-
-            <Card className="bg-gradient-to-br from-green-500 to-green-600 text-white">
-              <h3 className="text-xl font-bold mb-2">🎉 Recent Achievements</h3>
-              <div className="space-y-2 mt-4">
-                <div className="flex items-center space-x-2 bg-white bg-opacity-20 rounded-lg p-2">
-                  <span className="text-2xl">⭐</span>
-                  <span className="text-sm">Reading Star Badge</span>
-                </div>
-                <div className="flex items-center space-x-2 bg-white bg-opacity-20 rounded-lg p-2">
-                  <span className="text-2xl">🧙</span>
-                  <span className="text-sm">Math Wizard Badge</span>
-                </div>
-                <div className="flex items-center space-x-2 bg-white bg-opacity-20 rounded-lg p-2">
-                  <span className="text-2xl">⚡</span>
-                  <span className="text-sm">Quick Learner Badge</span>
-                </div>
-              </div>
-            </Card>
-
-            <Card className="bg-gradient-to-br from-yellow-500 to-orange-500 text-white">
-              <h3 className="text-xl font-bold mb-2">💪 Keep Going!</h3>
-              <p className="text-sm text-yellow-100 mb-3">
-                Alex is on a 5-day learning streak! Help maintain the momentum.
-              </p>
-              <div className="bg-white bg-opacity-20 rounded-lg p-3">
-                <p className="text-sm font-medium mb-2">This Week's Goal</p>
-                <ProgressBar progress={80} color="yellow" />
-                <p className="text-xs mt-2">4 of 5 daily goals completed</p>
-              </div>
-            </Card>
-          </div>
+      {/* Navigation Tabs */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 border-b border-gray-200 dark:border-gray-700">
+        <div className="flex gap-4">
+          <button
+            onClick={() => setActiveTab('overview')}
+            className={`px-4 py-3 font-semibold ${activeTab === 'overview' ? 'border-b-2 border-blue-600 text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-t-md'}`}
+          >
+            Overview
+          </button>
+          <button
+            onClick={() => setActiveTab('feedback')}
+            className={`px-4 py-3 font-semibold ${activeTab === 'feedback' ? 'border-b-2 border-blue-600 text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-t-md'}`}
+          >
+            Teacher Feedback
+          </button>
+          <button
+            onClick={() => setActiveTab('activities')}
+            className={`px-4 py-3 font-semibold ${activeTab === 'activities' ? 'border-b-2 border-blue-600 text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-t-md'}`}
+          >
+            Upcoming Activities
+          </button>
         </div>
       </div>
+
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {activeTab === 'overview' && (
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-2 space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <Card>
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <p className="text-gray-500 dark:text-gray-400 text-sm">Overall Progress</p>
+                      <h2 className="text-3xl font-bold mt-1">81%</h2>
+                    </div>
+                    <TrendingUp className="text-gray-400 w-8 h-8" />
+                  </div>
+                </Card>
+                <Card>
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <p className="text-gray-500 dark:text-gray-400 text-sm">Attendance</p>
+                      <h2 className="text-3xl font-bold mt-1">95%</h2>
+                    </div>
+                    <Calendar className="text-gray-400 w-8 h-8" />
+                  </div>
+                </Card>
+                <Card>
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <p className="text-gray-500 dark:text-gray-400 text-sm">Badges Earned</p>
+                      <h2 className="text-3xl font-bold mt-1">12</h2>
+                    </div>
+                    <Award className="text-gray-400 w-8 h-8" />
+                  </div>
+                </Card>
+                <Card>
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <p className="text-gray-500 dark:text-gray-400 text-sm">Study Time</p>
+                      <h2 className="text-3xl font-bold mt-1">18h</h2>
+                    </div>
+                    <Clock className="text-gray-400 w-8 h-8" />
+                  </div>
+                </Card>
+              </div>
+              <Card>
+                <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">Progress by Subject</h2>
+                <div className="space-y-4">
+                  {childProgress.map((subject) => (
+                    <div key={subject.id} className="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
+                      <div className="flex items-center justify-between mb-3">
+                        <h3 className="font-semibold text-gray-800 dark:text-white">{subject.subject}</h3>
+                        <span className="text-lg font-bold text-gray-800 dark:text-white">{subject.progress}%</span>
+                      </div>
+                      <ProgressBar progress={subject.progress} color="blue" />
+                    </div>
+                  ))}
+                </div>
+              </Card>
+            </div>
+            <div className="space-y-6">
+              <Card>
+                <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4 flex items-center">
+                  <MessageSquare className="w-6 h-6 mr-2 text-green-500" />
+                  Latest Feedback
+                </h2>
+                <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-xl">
+                  <h3 className="font-semibold text-gray-800 dark:text-white">{recentFeedback[0].teacher}</h3>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">{recentFeedback[0].subject}</p>
+                  <p className="text-sm text-gray-700 dark:text-gray-300">"{recentFeedback[0].message}"</p>
+                </div>
+              </Card>
+              <Card>
+                <h3 className="text-xl font-bold mb-2 flex items-center"><Award className="w-5 h-5 mr-2 text-yellow-500" />Recent Achievements</h3>
+                <div className="space-y-2 mt-4">
+                  <div className="flex items-center space-x-2 bg-gray-100 dark:bg-gray-700 rounded-lg p-2">
+                    <Star className="w-5 h-5 text-yellow-500" />
+                    <span className="text-sm">Reading Star Badge</span>
+                  </div>
+                  <div className="flex items-center space-x-2 bg-gray-100 dark:bg-gray-700 rounded-lg p-2">
+                    <User className="w-5 h-5 text-blue-500" />
+                    <span className="text-sm">Math Wizard Badge</span>
+                  </div>
+                </div>
+              </Card>
+            </div>
+          </div>
+        )}
+      </main>
     </div>
   );
 };

@@ -7,12 +7,14 @@ import StudentDashboard from './pages/StudentDashboard';
 import TeacherDashboard from './pages/TeacherDashboard';
 import ParentDashboard from './pages/ParentDashboard';
 import AdminDashboard from './pages/AdminDashboard';
+import LoginPage from './LoginPage';
+import SignupPage from './SignupPage';
 
 const ProtectedRoute = ({ children, allowedRole }) => {
   const { userRole } = useApp();
 
   if (!userRole) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/login" replace />;
   }
 
   if (userRole !== allowedRole) {
@@ -43,6 +45,8 @@ const AppContent = () => {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
           <Route
             path="/student"
             element={

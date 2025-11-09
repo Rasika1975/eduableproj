@@ -1,212 +1,155 @@
+import { useState } from 'react';
 import { useApp } from '../contexts/AppContext';
 import Card from '../components/Card';
-import { Users, BookOpen, GraduationCap, UserCheck, TrendingUp, Activity } from 'lucide-react';
+import { Users, BookOpen, GraduationCap, ShieldCheck, TrendingUp, Activity, BarChart, Settings, FileCheck, UserCog } from 'lucide-react';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 const AdminDashboard = () => {
   const { userName } = useApp();
+  const [activeTab, setActiveTab] = useState('overview');
 
-  const systemStats = [
-    { id: 1, label: 'Total Users', value: '1,248', change: '+12%', icon: Users, color: 'blue' },
-    { id: 2, label: 'Active Students', value: '856', change: '+8%', icon: GraduationCap, color: 'green' },
-    { id: 3, label: 'Total Teachers', value: '42', change: '+3', icon: UserCheck, color: 'yellow' },
-    { id: 4, label: 'Lessons Created', value: '324', change: '+24', icon: BookOpen, color: 'purple' },
+  const overviewStats = [
+    { title: 'Total Users', value: '250', description: 'Students, Teachers, Parents', change: '+18% this month', icon: Users, changeColor: 'text-green-600' },
+    { title: 'Total Lessons', value: '720', description: 'Across all subjects', change: '+12%', icon: BookOpen, changeColor: 'text-green-600' },
+    { title: 'Active Students', value: '156', description: 'Currently enrolled', icon: GraduationCap },
+    { title: 'System Health', value: 'Excellent', description: 'All systems operational', icon: ShieldCheck, changeColor: 'text-green-600' },
   ];
 
-  const recentActivity = [
-    { id: 1, action: 'New teacher registered', user: 'John Smith', time: '5 minutes ago', type: 'user' },
-    { id: 2, action: 'Lesson uploaded', user: 'Ms. Sarah Williams', time: '1 hour ago', type: 'content' },
-    { id: 3, action: 'Student completed assessment', user: 'Alex Johnson', time: '2 hours ago', type: 'activity' },
-    { id: 4, action: 'New parent account created', user: 'Mary Davis', time: '3 hours ago', type: 'user' },
-    { id: 5, action: 'System backup completed', user: 'System', time: '6 hours ago', type: 'system' },
-  ];
-
-  const userBreakdown = [
-    { role: 'Students', count: 856, percentage: 69, color: 'blue' },
-    { role: 'Parents', count: 350, percentage: 28, color: 'green' },
-    { role: 'Teachers', count: 42, percentage: 3, color: 'yellow' },
+  const platformGrowthData = [
+    { name: 'Jan', Users: 200, Content: 300 },
+    { name: 'Feb', Users: 250, Content: 350 },
+    { name: 'Mar', Users: 300, Content: 450 },
+    { name: 'Apr', Users: 320, Content: 500 },
+    { name: 'May', Users: 400, Content: 600 },
+    { name: 'Jun', Users: 450, Content: 720 },
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 pb-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="mb-8">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-800 dark:text-white mb-2">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+      {/* Page Header */}
+      <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <h1 className="text-3xl font-bold">
             Admin Dashboard
           </h1>
-          <p className="text-lg text-gray-600 dark:text-gray-300">
-            Welcome, {userName} - System Overview & Management
+          <p className="text-gray-500 dark:text-gray-400 mt-1">
+            Welcome back, {userName || "Admin"}
           </p>
         </div>
+      </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          {systemStats.map((stat) => {
-            const Icon = stat.icon;
-            const colorClasses = {
-              blue: 'from-blue-500 to-blue-600',
-              green: 'from-green-500 to-green-600',
-              yellow: 'from-yellow-500 to-orange-500',
-              purple: 'from-purple-500 to-purple-600',
-            };
-
-            return (
-              <Card key={stat.id} className={`bg-gradient-to-br ${colorClasses[stat.color]} text-white`}>
-                <div className="flex items-center justify-between mb-4">
-                  <div>
-                    <p className="text-white text-opacity-80 text-sm mb-1">{stat.label}</p>
-                    <p className="text-3xl font-bold">{stat.value}</p>
-                  </div>
-                  <Icon className="w-12 h-12 text-white text-opacity-80" />
-                </div>
-                <div className="flex items-center space-x-1 text-sm">
-                  <TrendingUp className="w-4 h-4" />
-                  <span>{stat.change} this month</span>
-                </div>
-              </Card>
-            );
-          })}
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2 space-y-6">
-            <Card>
-              <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6 flex items-center">
-                <Activity className="w-6 h-6 mr-2 text-blue-500" />
-                Recent System Activity
-              </h2>
-              <div className="space-y-3">
-                {recentActivity.map((activity) => (
-                  <div
-                    key={activity.id}
-                    className="flex items-start space-x-3 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg hover:shadow-md transition-shadow"
-                  >
-                    <div className={`w-2 h-2 rounded-full mt-2 ${
-                      activity.type === 'user' ? 'bg-blue-500' :
-                      activity.type === 'content' ? 'bg-green-500' :
-                      activity.type === 'activity' ? 'bg-yellow-500' :
-                      'bg-purple-500'
-                    }`} />
-                    <div className="flex-1">
-                      <p className="text-sm font-medium text-gray-800 dark:text-white">
-                        {activity.action}
-                      </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">
-                        {activity.user} • {activity.time}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </Card>
-
-            <Card>
-              <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6">
-                Quick Actions
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <button className="p-4 bg-blue-500 hover:bg-blue-600 text-white rounded-lg text-left transition-all hover:shadow-lg">
-                  <Users className="w-6 h-6 mb-2" />
-                  <p className="font-semibold">Manage Users</p>
-                  <p className="text-sm text-blue-100">Add, edit, or remove users</p>
-                </button>
-                <button className="p-4 bg-green-500 hover:bg-green-600 text-white rounded-lg text-left transition-all hover:shadow-lg">
-                  <BookOpen className="w-6 h-6 mb-2" />
-                  <p className="font-semibold">Content Management</p>
-                  <p className="text-sm text-green-100">Review and approve lessons</p>
-                </button>
-                <button className="p-4 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg text-left transition-all hover:shadow-lg">
-                  <Activity className="w-6 h-6 mb-2" />
-                  <p className="font-semibold">Analytics</p>
-                  <p className="text-sm text-yellow-100">View detailed reports</p>
-                </button>
-                <button className="p-4 bg-purple-500 hover:bg-purple-600 text-white rounded-lg text-left transition-all hover:shadow-lg">
-                  <TrendingUp className="w-6 h-6 mb-2" />
-                  <p className="font-semibold">System Settings</p>
-                  <p className="text-sm text-purple-100">Configure platform settings</p>
-                </button>
-              </div>
-            </Card>
-          </div>
-
-          <div className="space-y-6">
-            <Card>
-              <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">
-                User Distribution
-              </h2>
-              <div className="space-y-4">
-                {userBreakdown.map((user) => {
-                  const colorClasses = {
-                    blue: 'bg-blue-500',
-                    green: 'bg-green-500',
-                    yellow: 'bg-yellow-500',
-                  };
-
-                  return (
-                    <div key={user.role}>
-                      <div className="flex justify-between items-center mb-2">
-                        <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                          {user.role}
-                        </span>
-                        <span className="text-sm font-bold text-gray-800 dark:text-white">
-                          {user.count}
-                        </span>
-                      </div>
-                      <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 overflow-hidden">
-                        <div
-                          className={`h-full ${colorClasses[user.color]} transition-all duration-500 rounded-full`}
-                          style={{ width: `${user.percentage}%` }}
-                        />
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </Card>
-
-            <Card className="bg-gradient-to-br from-blue-500 to-purple-600 text-white">
-              <h3 className="text-xl font-bold mb-2">System Health</h3>
-              <div className="space-y-3 mt-4">
-                <div className="flex justify-between items-center">
-                  <span className="text-blue-100 text-sm">Server Status</span>
-                  <span className="px-2 py-1 bg-green-500 rounded text-xs font-semibold">Online</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-blue-100 text-sm">Database</span>
-                  <span className="px-2 py-1 bg-green-500 rounded text-xs font-semibold">Healthy</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-blue-100 text-sm">API Response</span>
-                  <span className="font-bold text-lg">45ms</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-blue-100 text-sm">Uptime</span>
-                  <span className="font-bold text-lg">99.9%</span>
-                </div>
-              </div>
-            </Card>
-
-            <Card className="bg-gradient-to-br from-green-500 to-green-600 text-white">
-              <h3 className="text-xl font-bold mb-2">Monthly Growth</h3>
-              <p className="text-sm text-green-100 mb-3">
-                Platform is growing steadily across all metrics
-              </p>
-              <div className="space-y-2">
-                <div className="flex justify-between items-center text-sm">
-                  <span>New Users</span>
-                  <span className="font-bold">+156</span>
-                </div>
-                <div className="flex justify-between items-center text-sm">
-                  <span>Lessons Created</span>
-                  <span className="font-bold">+48</span>
-                </div>
-                <div className="flex justify-between items-center text-sm">
-                  <span>Total Engagement</span>
-                  <span className="font-bold">+23%</span>
-                </div>
-              </div>
-            </Card>
-          </div>
+      {/* Navigation Tabs */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 border-b border-gray-200 dark:border-gray-700">
+        <div className="flex gap-4">
+          <button
+            onClick={() => setActiveTab('overview')}
+            className={`px-4 py-3 font-semibold ${activeTab === 'overview' ? 'border-b-2 border-blue-600 text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-t-md'}`}
+          >
+            Overview
+          </button>
+          <button
+            onClick={() => setActiveTab('users')}
+            className={`px-4 py-3 font-semibold ${activeTab === 'users' ? 'border-b-2 border-blue-600 text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-t-md'}`}
+          >
+            Manage Users
+          </button>
+          <button
+            onClick={() => setActiveTab('settings')}
+            className={`px-4 py-3 font-semibold ${activeTab === 'settings' ? 'border-b-2 border-blue-600 text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-t-md'}`}
+          >
+            System Settings
+          </button>
         </div>
       </div>
+
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {activeTab === 'overview' && (
+          <div className="space-y-8">
+            {/* Main Stats */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {overviewStats.map((stat) => {
+                const Icon = stat.icon;
+                return (
+                  <Card key={stat.title}>
+                    <div className="flex justify-between items-start">
+                      <div className="flex flex-col">
+                        <p className="text-gray-500 dark:text-gray-400 text-sm">{stat.title}</p>
+                        <span className="text-3xl font-bold mt-1">{stat.value}</span>
+                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{stat.description}</p>
+                      </div>
+                      <div className="p-2 bg-blue-100 dark:bg-blue-900/50 rounded-lg">
+                        <Icon className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                      </div>
+                    </div>
+                    {stat.change && (
+                      <div className={`flex items-center space-x-1 text-sm mt-2 ${stat.changeColor}`}>
+                        <TrendingUp className="w-4 h-4" />
+                        <span>{stat.change}</span>
+                      </div>
+                    )}
+                  </Card>
+                );
+              })}
+            </div>
+            
+            {/* Main Content Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              <div className="lg:col-span-2">
+                <Card>
+                  <h2 className="text-xl font-bold mb-4">Platform Growth</h2>
+                  <div style={{ height: 300 }}>
+                    <ResponsiveContainer width="100%" height="100%">
+                      <LineChart data={platformGrowthData} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="rgba(156, 163, 175, 0.3)" />
+                        <XAxis dataKey="name" />
+                        <YAxis />
+                        <Tooltip contentStyle={{ backgroundColor: 'white', border: '1px solid #e2e8f0', borderRadius: '0.5rem' }} />
+                        <Legend />
+                        <Line type="monotone" dataKey="Users" stroke="#3b82f6" strokeWidth={2} />
+                        <Line type="monotone" dataKey="Content" stroke="#16a34a" strokeWidth={2} />
+                      </LineChart>
+                    </ResponsiveContainer>
+                  </div>
+                </Card>
+              </div>
+              <div className="space-y-8">
+                <Card>
+                  <h2 className="text-xl font-bold mb-4">System Status</h2>
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center"><span className="text-gray-500 dark:text-gray-400">System Uptime</span><span className="font-bold text-green-600">99.9%</span></div>
+                    <div className="flex justify-between items-center"><span className="text-gray-500 dark:text-gray-400">Active Sessions</span><span className="font-bold">234</span></div>
+                    <div className="flex justify-between items-center"><span className="text-gray-500 dark:text-gray-400">Storage Used</span><span className="font-bold">45GB / 100GB</span></div>
+                    <div className="flex justify-between items-center"><span className="text-gray-500 dark:text-gray-400">API Response Time</span><span className="font-bold">120ms</span></div>
+                  </div>
+                </Card>
+                <Card>
+                  <h2 className="text-xl font-bold mb-4">Quick Actions</h2>
+                  <div className="grid grid-cols-2 gap-4">
+                    <button className="flex flex-col items-center p-3 bg-gray-100 dark:bg-gray-700/50 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition"><UserCog className="w-6 h-6 mb-1 text-blue-600 dark:text-blue-400" /> <span className="text-sm font-semibold">Manage Users</span></button>
+                    <button className="flex flex-col items-center p-3 bg-gray-100 dark:bg-gray-700/50 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition"><FileCheck className="w-6 h-6 mb-1 text-green-600 dark:text-green-400" /> <span className="text-sm font-semibold">Content Moderation</span></button>
+                    <button className="flex flex-col items-center p-3 bg-gray-100 dark:bg-gray-700/50 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition"><BarChart className="w-6 h-6 mb-1 text-yellow-600 dark:text-yellow-400" /> <span className="text-sm font-semibold">View Reports</span></button>
+                    <button className="flex flex-col items-center p-3 bg-gray-100 dark:bg-gray-700/50 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition"><Settings className="w-6 h-6 mb-1 text-purple-600 dark:text-purple-400" /> <span className="text-sm font-semibold">System Settings</span></button>
+                  </div>
+                </Card>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'users' && (
+          <Card>
+            <h2 className="text-xl font-bold">Manage Users</h2>
+            <p className="mt-4 text-gray-600 dark:text-gray-400">User management interface will be here.</p>
+          </Card>
+        )}
+
+        {activeTab === 'settings' && (
+          <Card>
+            <h2 className="text-xl font-bold">System Settings</h2>
+            <p className="mt-4 text-gray-600 dark:text-gray-400">System settings interface will be here.</p>
+          </Card>
+        )}
+      </main>
     </div>
   );
 };
