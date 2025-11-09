@@ -33,7 +33,7 @@ const Navbar = () => {
               Welcome, <span className="font-semibold text-blue-600 dark:text-blue-400">{userName}</span>
             </div>
             <button
-              onClick={() => navigate(userRole === 'student' ? '/student' : userRole === 'teacher' ? '/teacher' : userRole === 'parent' ? '/parent' : '/admin')}
+              onClick={() => navigate('/')}
               className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition"
               aria-label="Home"
             >
