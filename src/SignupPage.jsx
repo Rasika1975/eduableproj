@@ -7,6 +7,7 @@ const SignupPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('student');
+  const [disability, setDisability] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const { login } = useApp();
@@ -53,6 +54,26 @@ const SignupPage = () => {
               <option value="admin">Admin</option>
             </select>
           </div>
+          
+          {role === 'student' && (
+            <div className="animate-fade-in">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">My Challenge (Optional)</label>
+              <select value={disability} onChange={(e) => setDisability(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-blue-500">
+                <option value="">Select if applicable...</option>
+                <option value="dyslexia">Dyslexia</option>
+                <option value="adhd">ADHD</option>
+                <option value="autism">Autism (ASD)</option>
+                <option value="visual">Visually Impaired</option>
+                <option value="hearing">Hearing Impaired</option>
+                <option value="speech">Speech & Language Disorder</option>
+                <option value="learning">Learning Disability</option>
+                <option value="physical">Physical Disability</option>
+                <option value="mental">Mental Health Challenge</option>
+              </select>
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">We will customize your learning experience based on this.</p>
+            </div>
+          )}
+
           <button type="submit" className="w-full px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition">Sign Up</button>
         </form>
         <p className="text-center text-sm text-gray-600 dark:text-gray-400 mt-6">

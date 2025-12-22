@@ -3,15 +3,24 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   Book,
-  Palette,
-  Atom,
   Zap,
   Volume2,
   VolumeX,
   Sparkles,
   Heart,
-  Calculator,
   BookOpen,
+  EyeOff,
+  EarOff,
+  MessageCircle,
+  BrainCircuit,
+  Accessibility,
+  Smile,
+  UserCheck,
+  ScreenShare,
+  Bot,
+  BarChart,
+  Palette,
+  Atom,
 } from "lucide-react";
 import confetti from "canvas-confetti";
 
@@ -34,30 +43,83 @@ const Home = () => {
     "Music can make plants grow!",
   ];
 
-  const learningWorlds = [
+  const disabilities = [
     {
-      title: "Math World",
-      icon: <Calculator className="w-14 h-14 text-blue-600" />,
-      color: "from-blue-400 to-blue-600",
-      description: "Numbers & Patterns",
+      title: "Dyslexia",
+      description: "Pdhne, likhne aur spelling mein difficulty",
+      icon: BookOpen,
+      color: "text-blue-500",
     },
     {
-      title: "Art World",
-      icon: <Palette className="w-14 h-14 text-pink-500" />,
-      color: "from-pink-400 to-pink-600",
-      description: "Create & Express",
+      title: "ADHD",
+      description: "Focus aur attention maintain karne mein problem",
+      icon: Zap,
+      color: "text-orange-500",
     },
     {
-      title: "Science World",
-      icon: <Atom className="w-14 h-14 text-green-500" />,
-      color: "from-green-400 to-green-600",
-      description: "Explore & Discover",
+      title: "Autism (ASD)",
+      description: "Communication aur social interaction mein difficulty",
+      icon: Heart,
+      color: "text-teal-500",
     },
     {
-      title: "Story World",
-      icon: <BookOpen className="w-14 h-14 text-purple-600" />,
-      color: "from-purple-400 to-purple-600",
-      description: "Read & Imagine",
+      title: "Visually Impaired",
+      description: "Kam ya bilkul nahi dikhta",
+      icon: EyeOff,
+      color: "text-gray-500",
+    },
+    {
+      title: "Hearing Impaired",
+      description: "Sunne mein problem",
+      icon: EarOff,
+      color: "text-indigo-500",
+    },
+    {
+      title: "Speech & Language Disorders",
+      description: "Bolne ya express karne mein difficulty",
+      icon: MessageCircle,
+      color: "text-sky-500",
+    },
+    {
+      title: "Learning Disabilities",
+      description: "Dyscalculia (maths), Dysgraphia (writing)",
+      icon: BrainCircuit,
+      color: "text-purple-500",
+    },
+    {
+      title: "Physical Disabilities",
+      description: "Body movement limited",
+      icon: Accessibility,
+      color: "text-green-500",
+    },
+    {
+      title: "Mental Health Challenges",
+      description: "Anxiety, depression, stress",
+      icon: Smile,
+      color: "text-yellow-500",
+    },
+  ];
+
+  const smartFeatures = [
+    {
+      title: "Personalized Learning",
+      description: "Personalized learning provide kare",
+      icon: UserCheck,
+    },
+    {
+      title: "Assistive Tech Support",
+      description: "Screen reader, speech-to-text & Braille support de",
+      icon: ScreenShare,
+    },
+    {
+      title: "AI-Powered Adaptation",
+      description: "AI-based adaptive pace follow kare",
+      icon: Bot,
+    },
+    {
+      title: "Progress Tracking",
+      description: "Teachers & parents ko progress tracking de",
+      icon: BarChart,
     },
   ];
 
@@ -147,6 +209,7 @@ const Home = () => {
         </motion.div>
 
         {/* ✅ Main Title */}
+        <div id="about" className="scroll-mt-24">
         <h1 className="text-5xl md:text-6xl font-extrabold text-gray-800 mt-3 text-center">
           Your Learning Adventure
           <br />
@@ -160,6 +223,7 @@ const Home = () => {
           Fun, accessible, and smart learning designed for every amazing child
           <Heart className="inline-block w-6 h-6 ml-2 text-pink-500" />
         </p>
+        </div>
 
         {/* ✅ LOGIN / SIGNUP BUTTONS */}
         <div className="flex flex-col sm:flex-row gap-4 mb-16">
@@ -180,19 +244,64 @@ const Home = () => {
           </Link>
         </div>
 
-        {/* ✅ WORLDS */}
-        <h2 className="text-3xl font-bold text-gray-800 mb-8">Choose Your World!</h2>
+        {/* ✅ Features & Support Section */}
+        <div className="w-full max-w-6xl mx-auto mb-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {/* Disabilities Column */}
+            <div id="disabilities" className="scroll-mt-24">
+              <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center lg:text-left">
+                For Every Unique Learner
+              </h2>
+              <div className="space-y-4">
+                {disabilities.map((disability, index) => (
+                  <InfoItem key={index} item={disability} />
+                ))}
+              </div>
+            </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto mb-10">
-          {learningWorlds.map((world, index) => (
-            <LearningWorldCard key={index} world={world} index={index} />
-          ))}
+            {/* Smart Features Column */}
+            <div id="features" className="scroll-mt-24">
+              <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center lg:text-left">
+                Powered by Smart Technology
+              </h2>
+              <div className="space-y-4">
+                {smartFeatures.map((feature, index) => (
+                  <InfoItem key={index} item={feature} />
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ✅ Contact / Parents Info Section */}
+        <div id="contact" className="w-full max-w-4xl mx-auto mb-16 text-center bg-white/60 backdrop-blur-md p-8 rounded-2xl shadow-sm border border-white scroll-mt-24">
+          <h2 className="text-3xl font-bold text-gray-800 mb-6">Contact & Parents Info</h2>
+          <p className="text-gray-600 mb-8 text-lg">
+            We are here to support parents and teachers in creating the best learning environment.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+            <div className="p-4 bg-white rounded-xl shadow-sm">
+              <h3 className="font-bold text-blue-600 mb-2">Support</h3>
+              <p className="text-sm text-gray-600">Need help with the platform? Reach out to our 24/7 support team.</p>
+              <a href="#" className="text-blue-500 text-sm font-semibold mt-2 inline-block">Contact Support →</a>
+            </div>
+            <div className="p-4 bg-white rounded-xl shadow-sm">
+              <h3 className="font-bold text-purple-600 mb-2">Parent Guide</h3>
+              <p className="text-sm text-gray-600">Download our comprehensive guide for parents and guardians.</p>
+              <a href="#" className="text-purple-500 text-sm font-semibold mt-2 inline-block">Download PDF →</a>
+            </div>
+            <div className="p-4 bg-white rounded-xl shadow-sm">
+              <h3 className="font-bold text-pink-600 mb-2">Community</h3>
+              <p className="text-sm text-gray-600">Join our community forum to connect with other parents.</p>
+              <a href="#" className="text-pink-500 text-sm font-semibold mt-2 inline-block">Join Forum →</a>
+            </div>
+          </div>
         </div>
 
         {/* ✅ Bottom Icons */}
         <div className="flex justify-center gap-10 text-gray-600">
           {[Book, Palette, Atom, Zap].map((Icon, i) => (
-            <motion.div key={i} whileHover={{ scale: 1.2, rotate: 360 }} transition={{ duration: 0.5 }}>
+            <motion.div key={i} whileHover={{ scale: 1.2, rotate: 15 }} transition={{ duration: 0.3 }}>
               <Icon className="w-10 h-10" />
             </motion.div>
           ))}
@@ -203,10 +312,6 @@ const Home = () => {
 };
 
 export default Home;
-
-
-
-
 
 /* ✅✅✅ COMPONENTS BELOW ✅✅✅ */
 
@@ -262,20 +367,22 @@ const FloatingMascot = () => (
 );
 
 
-// ✅ Learning World Card
-const LearningWorldCard = ({ world, index }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 50 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.5, delay: index * 0.2 }}
-    className={`bg-gradient-to-br ${world.color} p-6 rounded-2xl text-white flex flex-col items-center shadow-lg`}
-  >
-    <div className="mb-4">{world.icon}</div>
-    <h3 className="text-2xl font-bold">{world.title}</h3>
-    <p className="text-sm opacity-90">{world.description}</p>
-  </motion.div>
-);
-
+// ✅ Info Item
+const InfoItem = ({ item }) => {
+  const Icon = item.icon;
+  return (
+    <motion.div
+      className="flex items-start gap-4 p-4 bg-white/80 backdrop-blur-sm rounded-xl shadow-lg border border-gray-200 hover:shadow-xl transition-shadow"
+      whileHover={{ y: -5 }}
+    >
+      <Icon className={`w-8 h-8 ${item.color || 'text-blue-600'} mt-1 flex-shrink-0`} />
+      <div>
+        <h3 className="text-lg font-bold text-gray-800">{item.title}</h3>
+        <p className="text-gray-600 text-sm">{item.description}</p>
+      </div>
+    </motion.div>
+  );
+};
 
 // ✅ Particle Background
 const ParticleBackground = () => {
