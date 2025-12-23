@@ -4,9 +4,6 @@ import { motion } from "framer-motion";
 import {
   Book,
   Zap,
-  Volume2,
-  VolumeX,
-  Sparkles,
   Heart,
   BookOpen,
   EyeOff,
@@ -19,402 +16,391 @@ import {
   ScreenShare,
   Bot,
   BarChart,
-  Palette,
-  Atom,
+  ChevronRight,
+  Star,
+  Users,
+  Award,
+  TrendingUp,
+  CheckCircle,
+  ArrowRight,
+  Play,
+  FileText,
+  Target,
+  Shield,
+  Sparkles
 } from "lucide-react";
-import confetti from "canvas-confetti";
 
-// ✅ MAIN HOME COMPONENT
 const Home = () => {
-  const welcomeMessages = [
-    "Hello Explorer!",
-    "Ready to Learn Something Awesome?",
-    "Let's Begin Our Adventure!",
-    "Welcome to Your Learning Journey!",
-    "Time for Fun and Discovery!",
-  ];
-
-  const didYouKnowFacts = [
-    "Did you know? Bees can count!",
-    "Colors have moods!",
-    "Planets dance around the sun!",
-    "Every snowflake is unique!",
-    "A rainbow has 7 colors!",
-    "Music can make plants grow!",
-  ];
+  const [activeTab, setActiveTab] = useState("overview");
 
   const disabilities = [
     {
       title: "Dyslexia",
-      description: "Pdhne, likhne aur spelling mein difficulty",
+      description: "Reading, writing, and spelling difficulties",
       icon: BookOpen,
-      color: "text-blue-500",
+      color: "text-[#7E8BFF]",
+      bgColor: "bg-[#7E8BFF]/10",
+      support: ["Dyslexia-friendly fonts", "Text spacing tools", "Audio support"]
     },
     {
       title: "ADHD",
-      description: "Focus aur attention maintain karne mein problem",
+      description: "Focus and attention maintenance challenges",
       icon: Zap,
-      color: "text-orange-500",
+      color: "text-[#F8B9A8]",
+      bgColor: "bg-[#F8B9A8]/20",
+      support: ["Structured routines", "Break reminders", "Gamified focus"]
     },
     {
       title: "Autism (ASD)",
-      description: "Communication aur social interaction mein difficulty",
+      description: "Communication and social interaction variations",
       icon: Heart,
-      color: "text-teal-500",
+      color: "text-[#FF8A80]",
+      bgColor: "bg-[#FF8A80]/10",
+      support: ["Visual schedules", "Social stories", "Predictable patterns"]
     },
     {
-      title: "Visually Impaired",
-      description: "Kam ya bilkul nahi dikhta",
+      title: "Visual Impairment",
+      description: "Low vision or blindness",
       icon: EyeOff,
-      color: "text-gray-500",
+      color: "text-[#2E2A3F]",
+      bgColor: "bg-[#2E2A3F]/5",
+      support: ["Screen readers", "Voice navigation", "Braille displays"]
     },
     {
-      title: "Hearing Impaired",
-      description: "Sunne mein problem",
+      title: "Hearing Impairment",
+      description: "Hearing loss or deafness",
       icon: EarOff,
-      color: "text-indigo-500",
+      color: "text-[#C9C4FF]",
+      bgColor: "bg-[#C9C4FF]/20",
+      support: ["Visual captions", "Sign language videos", "Written instructions"]
     },
     {
-      title: "Speech & Language Disorders",
-      description: "Bolne ya express karne mein difficulty",
+      title: "Speech Disorders",
+      description: "Verbal expression challenges",
       icon: MessageCircle,
-      color: "text-sky-500",
-    },
-    {
-      title: "Learning Disabilities",
-      description: "Dyscalculia (maths), Dysgraphia (writing)",
-      icon: BrainCircuit,
-      color: "text-purple-500",
-    },
-    {
-      title: "Physical Disabilities",
-      description: "Body movement limited",
-      icon: Accessibility,
-      color: "text-green-500",
-    },
-    {
-      title: "Mental Health Challenges",
-      description: "Anxiety, depression, stress",
-      icon: Smile,
-      color: "text-yellow-500",
-    },
+      color: "text-[#7E8BFF]",
+      bgColor: "bg-[#7E8BFF]/10",
+      support: ["AAC devices", "Text communication", "Symbol boards"]
+    }
   ];
 
-  const smartFeatures = [
-    {
-      title: "Personalized Learning",
-      description: "Personalized learning provide kare",
-      icon: UserCheck,
-    },
-    {
-      title: "Assistive Tech Support",
-      description: "Screen reader, speech-to-text & Braille support de",
-      icon: ScreenShare,
-    },
-    {
-      title: "AI-Powered Adaptation",
-      description: "AI-based adaptive pace follow kare",
-      icon: Bot,
-    },
-    {
-      title: "Progress Tracking",
-      description: "Teachers & parents ko progress tracking de",
-      icon: BarChart,
-    },
+  const stats = [
+    { icon: Users, number: "10,000+", label: "Active Learners", color: "text-[#7E8BFF]" },
+    { icon: Award, number: "500+", label: "Certified Educators", color: "text-[#2E2A3F]" },
+    { icon: Star, number: "4.9/5", label: "Parent Satisfaction", color: "text-[#F8B9A8]" },
+    { icon: TrendingUp, number: "95%", label: "Milestone Achievement", color: "text-[#FF8A80]" }
   ];
-
-  const [welcomeIndex, setWelcomeIndex] = useState(0);
-  const [soundEnabled, setSoundEnabled] = useState(false);
-
-  // Change welcome messages every 2.5 sec
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setWelcomeIndex((prev) => (prev + 1) % welcomeMessages.length);
-    }, 2500);
-    return () => clearInterval(interval);
-  }, []);
-
-  const handleButtonClick = () => {
-    confetti({
-      particleCount: 120,
-      spread: 70,
-      origin: { y: 0.6 },
-      colors: ["#60A5FA", "#A78BFA", "#F472B6", "#34D399", "#FBBF24"],
-    });
-  };
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
-      <ParticleBackground />
-
-      {/* ✅ Sound Toggle */}
-      <motion.button
-        onClick={() => setSoundEnabled(!soundEnabled)}
-        className="fixed top-4 right-4 z-50 p-3 bg-white rounded-full shadow-lg"
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-      >
-        {soundEnabled ? (
-          <Volume2 className="w-6 h-6 text-blue-600" />
-        ) : (
-          <VolumeX className="w-6 h-6 text-gray-400" />
-        )}
-      </motion.button>
-
-      <FloatingMascot />
-
-      {/* ✅ Fact Bubbles */}
-      {didYouKnowFacts.map((fact, i) => (
-        <FactBubble key={i} fact={fact} delay={i * 2} />
-      ))}
-
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 py-12">
-        {/* ✅ Animated Logo */}
-        <motion.div
-          className="flex justify-center mb-6"
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ type: "spring", stiffness: 260, damping: 20 }}
-        >
-          <motion.div
-            className="w-32 h-32 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 rounded-full flex items-center justify-center shadow-2xl relative"
-            animate={{ rotate: [0, 5, -5, 0], scale: [1, 1.05, 1] }}
-            transition={{ duration: 3, repeat: Infinity }}
+    <div className="min-h-screen bg-[#FFF8F4]">
+      {/* Hero Section */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-[#FCE4E6] to-[#C9C4FF] pt-20 pb-32">
+        <div className="absolute inset-0 bg-grid-slate-100/50 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))] pointer-events-none" />
+        
+        <div className="relative max-w-7xl mx-auto px-6">
+          <motion.div 
+            className="text-center max-w-4xl mx-auto mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
           >
-            <div className="w-28 h-28 bg-white rounded-full flex items-center justify-center">
-              <motion.span
-                className="text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-600"
-                animate={{ scale: [1, 1.1, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              >
-                E
-              </motion.span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#7E8BFF]/20 rounded-full mb-8">
+              <Sparkles className="w-4 h-4 text-[#7E8BFF]" />
+              <span className="text-sm font-semibold text-[#2E2A3F]">Accessible Education for Every Child</span>
             </div>
 
-            <motion.div
-              className="absolute -top-1 -right-1"
-              animate={{ rotate: 360 }}
-              transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-            >
-              <Sparkles className="w-8 h-8 text-yellow-400" />
-            </motion.div>
+            <h1 className="text-4xl md:text-6xl font-bold text-[#1F1F2E] mb-6 leading-tight">
+              Transform Learning
+              <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7E8BFF] via-[#FF8A80] to-[#F8B9A8]">
+                For Every Ability
+              </span>
+            </h1>
+
+            <p className="text-sm md:text-base text-[#1F1F2E]/80 mb-12 leading-relaxed max-w-2xl mx-auto">
+              Evidence-based, AI-powered educational platform designed specifically for children with diverse learning needs and disabilities.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+              <Link to="/signup">
+                <motion.button
+                  className="px-8 py-4 bg-[#7E8BFF] text-white font-semibold rounded-lg shadow-lg hover:bg-[#7E8BFF]/90 transition-all flex items-center gap-2 justify-center text-base"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  Start Free Trial
+                  <ArrowRight className="w-5 h-5" />
+                </motion.button>
+              </Link>
+
+              <Link to="/mock-test">
+                <motion.button
+                  className="px-8 py-4 bg-[#FFF8F4] text-[#1F1F2E] font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all flex items-center gap-2 justify-center border-2 border-[#1F1F2E]/10 text-base"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <FileText className="w-5 h-5" />
+                  Take Assessment Test
+                </motion.button>
+              </Link>
+            </div>
+
+            {/* Stats */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+              {stats.map((stat, idx) => (
+                <motion.div 
+                  key={idx}
+                  className="bg-[#FFF8F4] rounded-2xl p-6 shadow-lg border border-transparent"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: idx * 0.1 + 0.5 }}
+                >
+                  <stat.icon className={`w-8 h-8 mx-auto mb-3 ${stat.color}`} />
+                  <div className="text-3xl font-bold text-[#1F1F2E] mb-1">{stat.number}</div>
+                  <div className="text-sm text-[#1F1F2E]/80 font-medium">{stat.label}</div>
+                </motion.div>
+              ))}
+            </div>
           </motion.div>
-        </motion.div>
-
-        {/* ✅ Welcome Changing Text */}
-        <motion.div key={welcomeIndex} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-          <p className="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
-            {welcomeMessages[welcomeIndex]}
-          </p>
-        </motion.div>
-
-        {/* ✅ Main Title */}
-        <div id="about" className="scroll-mt-24">
-        <h1 className="text-5xl md:text-6xl font-extrabold text-gray-800 mt-3 text-center">
-          Your Learning Adventure
-          <br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600">
-            Starts Here!
-          </span>
-        </h1>
-
-        {/* ✅ Sub Title */}
-        <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto mb-10 text-center">
-          Fun, accessible, and smart learning designed for every amazing child
-          <Heart className="inline-block w-6 h-6 ml-2 text-pink-500" />
-        </p>
         </div>
+      </section>
 
-        {/* ✅ LOGIN / SIGNUP BUTTONS */}
-        <div className="flex flex-col sm:flex-row gap-4 mb-16">
-          <Link
-            to="/login"
-            onClick={handleButtonClick}
-            className="px-10 py-4 bg-blue-600 text-white font-bold rounded-full shadow-lg text-lg hover:bg-blue-700 transition"
-          >
-            Login
-          </Link>
+      {/* Disabilities Support Section */}
+      <section className="py-24 px-6 bg-gradient-to-br from-[#FCE4E6]/40 to-[#C9C4FF]/40">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-[#1F1F2E] mb-4">
+              Specialized Support Systems
+            </h2>
+            <p className="text-xl text-[#1F1F2E]/80 max-w-3xl mx-auto">
+              Comprehensive assistance tailored for diverse learning challenges and disabilities
+            </p>
+          </div>
 
-          <Link
-            to="/signup"
-            onClick={handleButtonClick}
-            className="px-10 py-4 bg-white text-blue-600 font-bold rounded-full shadow-lg text-lg border-2 border-blue-600"
-          >
-            Sign Up
-          </Link>
-        </div>
-
-        {/* ✅ Features & Support Section */}
-        <div className="w-full max-w-6xl mx-auto mb-16">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Disabilities Column */}
-            <div id="disabilities" className="scroll-mt-24">
-              <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center lg:text-left">
-                For Every Unique Learner
-              </h2>
-              <div className="space-y-4">
-                {disabilities.map((disability, index) => (
-                  <InfoItem key={index} item={disability} />
-                ))}
-              </div>
-            </div>
-
-            {/* Smart Features Column */}
-            <div id="features" className="scroll-mt-24">
-              <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center lg:text-left">
-                Powered by Smart Technology
-              </h2>
-              <div className="space-y-4">
-                {smartFeatures.map((feature, index) => (
-                  <InfoItem key={index} item={feature} />
-                ))}
-              </div>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {disabilities.map((disability, idx) => (
+              <motion.div
+                key={idx}
+                className={`${disability.bgColor} rounded-2xl p-8 border-2 border-transparent hover:border-[#7E8BFF]/30 hover:shadow-xl transition-all`}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1 }}
+              >
+                <disability.icon className={`w-12 h-12 ${disability.color} mb-4`} />
+                <h3 className="text-2xl font-bold text-[#1F1F2E] mb-2">
+                  {disability.title}
+                </h3>
+                <p className="text-[#1F1F2E]/90 mb-6 leading-relaxed">
+                  {disability.description}
+                </p>
+                
+                <div className="border-t border-black/10 pt-4">
+                  <p className="text-sm font-semibold text-[#1F1F2E] mb-3">Support Features:</p>
+                  <ul className="space-y-2">
+                    {disability.support.map((item, sIdx) => (
+                      <li key={sIdx} className="flex items-center gap-2 text-sm text-[#1F1F2E]/80">
+                        <div className={`w-1.5 h-1.5 ${disability.color.replace('text-', 'bg-')} rounded-full`} />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
+      </section>
 
-        {/* ✅ Contact / Parents Info Section */}
-        <div id="contact" className="w-full max-w-4xl mx-auto mb-16 text-center bg-white/60 backdrop-blur-md p-8 rounded-2xl shadow-sm border border-white scroll-mt-24">
-          <h2 className="text-3xl font-bold text-gray-800 mb-6">Contact & Parents Info</h2>
-          <p className="text-gray-600 mb-8 text-lg">
-            We are here to support parents and teachers in creating the best learning environment.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
-            <div className="p-4 bg-white rounded-xl shadow-sm">
-              <h3 className="font-bold text-blue-600 mb-2">Support</h3>
-              <p className="text-sm text-gray-600">Need help with the platform? Reach out to our 24/7 support team.</p>
-              <a href="#" className="text-blue-500 text-sm font-semibold mt-2 inline-block">Contact Support →</a>
+      {/* Mock Assessment CTA Section */}
+      <section className="py-24 px-6 bg-[#FFF8F4]">
+        <div className="max-w-5xl mx-auto">
+          <motion.div
+            className="bg-gradient-to-br from-[#7E8BFF] via-[#FF8A80] to-[#F8B9A8] rounded-3xl p-12 text-center text-white shadow-2xl"
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+          >
+            <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-6">
+              <FileText className="w-10 h-10 text-white" />
             </div>
-            <div className="p-4 bg-white rounded-xl shadow-sm">
-              <h3 className="font-bold text-purple-600 mb-2">Parent Guide</h3>
-              <p className="text-sm text-gray-600">Download our comprehensive guide for parents and guardians.</p>
-              <a href="#" className="text-purple-500 text-sm font-semibold mt-2 inline-block">Download PDF →</a>
+            
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              Not Sure Where to Start?
+            </h2>
+            <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
+              Take our comprehensive assessment test to identify your child's unique learning needs and get personalized recommendations.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link to="/mock-test">
+                <motion.button
+                  className="px-8 py-4 bg-[#FFF8F4] text-[#2E2A3F] font-bold rounded-lg shadow-lg hover:shadow-xl transition-all flex items-center gap-2 justify-center text-lg"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  Start Assessment
+                  <Play className="w-5 h-5" />
+                </motion.button>
+              </Link>
+
+              <button className="px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-bold rounded-lg border-2 border-white/30 hover:bg-white/20 transition-all flex items-center gap-2 justify-center text-lg">
+                <Shield className="w-5 h-5" />
+                Free & Confidential
+              </button>
             </div>
-            <div className="p-4 bg-white rounded-xl shadow-sm">
-              <h3 className="font-bold text-pink-600 mb-2">Community</h3>
-              <p className="text-sm text-gray-600">Join our community forum to connect with other parents.</p>
-              <a href="#" className="text-pink-500 text-sm font-semibold mt-2 inline-block">Join Forum →</a>
+
+            <div className="mt-8 flex items-center justify-center gap-8 text-sm opacity-80">
+              <div className="flex items-center gap-2">
+                <CheckCircle className="w-5 h-5" />
+                <span>15-20 minutes</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle className="w-5 h-5" />
+                <span>Science-backed</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle className="w-5 h-5" />
+                <span>Instant results</span>
+              </div>
             </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Process Section */}
+      <section className="py-24 px-6 bg-gradient-to-br from-[#FCE4E6]/40 to-[#C9C4FF]/40">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-[#1F1F2E] mb-4">
+              How It Works
+            </h2>
+            <p className="text-xl text-[#1F1F2E]/80 max-w-3xl mx-auto">
+              A simple, four-step process to transform your child's learning journey
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            {[
+              { step: "01", title: "Assessment", desc: "Complete our comprehensive evaluation to understand your child's unique needs", icon: FileText },
+              { step: "02", title: "Personalization", desc: "Receive a tailored learning path designed specifically for your child", icon: Target },
+              { step: "03", title: "Learning", desc: "Engage with adaptive content that grows with your child's progress", icon: BookOpen },
+              { step: "04", title: "Progress", desc: "Track milestones and celebrate achievements together", icon: BarChart }
+            ].map((item, idx) => (
+              <motion.div
+                key={idx}
+                className="relative"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.15 }}
+              >
+                <div className="bg-[#FFF8F4] rounded-2xl p-8 shadow-lg border border-transparent h-full">
+                  <div className="text-5xl font-bold text-[#7E8BFF]/20 mb-4">{item.step}</div>
+                  <item.icon className="w-10 h-10 text-[#7E8BFF] mb-4" />
+                  <h3 className="text-xl font-bold text-[#1F1F2E] mb-3">{item.title}</h3>
+                  <p className="text-[#1F1F2E]/80 leading-relaxed">{item.desc}</p>
+                </div>
+                
+                {idx < 3 && (
+                  <ChevronRight className="hidden md:block absolute -right-4 top-1/2 -translate-y-1/2 w-8 h-8 text-[#7E8BFF]/40" />
+                )}
+              </motion.div>
+            ))}
           </div>
         </div>
+      </section>
 
-        {/* ✅ Bottom Icons */}
-        <div className="flex justify-center gap-10 text-gray-600">
-          {[Book, Palette, Atom, Zap].map((Icon, i) => (
-            <motion.div key={i} whileHover={{ scale: 1.2, rotate: 15 }} transition={{ duration: 0.3 }}>
-              <Icon className="w-10 h-10" />
-            </motion.div>
-          ))}
+      {/* Final CTA Section */}
+      <section className="py-24 px-6 bg-[#FFF8F4]">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-4xl md:text-5xl font-bold text-[#1F1F2E] mb-6">
+            Let's Build Your Child's Future Together
+          </h2>
+          <p className="text-xl text-[#1F1F2E]/80 mb-12">
+            Join thousands of families who have transformed their children's learning experience
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link to="/signup">
+              <motion.button
+                className="px-10 py-5 bg-[#7E8BFF] text-white font-bold rounded-lg shadow-lg hover:bg-[#7E8BFF]/90 transition-all flex items-center gap-2 justify-center text-base"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Get Started Free
+                <ArrowRight className="w-5 h-5" />
+              </motion.button>
+            </Link>
+
+            <Link to="/login">
+              <motion.button
+                className="px-10 py-5 bg-[#FFF8F4] text-[#1F1F2E] font-bold rounded-lg shadow-lg hover:shadow-xl transition-all flex items-center gap-2 justify-center border-2 border-[#1F1F2E]/10 text-base"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Sign In
+              </motion.button>
+            </Link>
+          </div>
+
+          <p className="text-sm text-[#1F1F2E]/70 mt-8">
+            No credit card required • 14-day free trial • Cancel anytime
+          </p>
         </div>
-      </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-[#2E2A3F] text-[#FFF8F4] py-16 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+            <div>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 bg-gradient-to-br from-[#7E8BFF] to-[#C9C4FF] rounded-lg flex items-center justify-center">
+                  <span className="text-xl font-bold text-[#2E2A3F]">E</span>
+                </div>
+                <span className="text-2xl font-bold text-white">EduAccess</span>
+              </div>
+              <p className="text-[#FFF8F4]/70">Making education accessible for every child, regardless of ability.</p>
+            </div>
+
+            <div>
+              <h4 className="font-bold mb-4">Services</h4>
+              <ul className="space-y-2 text-[#FFF8F4]/70">
+                <li><a href="#" className="hover:text-[#FFF8F4] transition-colors">Personalized Learning</a></li>
+                <li><a href="#" className="hover:text-[#FFF8F4] transition-colors">Assistive Technology</a></li>
+                <li><a href="#" className="hover:text-[#FFF8F4] transition-colors">Progress Analytics</a></li>
+                <li><a href="#" className="hover:text-[#FFF8F4] transition-colors">Parent Resources</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-bold mb-4">Support</h4>
+              <ul className="space-y-2 text-[#FFF8F4]/70">
+                <li><a href="#" className="hover:text-[#FFF8F4] transition-colors">Help Center</a></li>
+                <li><a href="#" className="hover:text-[#FFF8F4] transition-colors">Contact Us</a></li>
+                <li><a href="#" className="hover:text-[#FFF8F4] transition-colors">Community Forum</a></li>
+                <li><Link to="/mock-test" className="hover:text-[#FFF8F4] transition-colors">Assessment Test</Link></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-bold mb-4">Legal</h4>
+              <ul className="space-y-2 text-[#FFF8F4]/70">
+                <li><a href="#" className="hover:text-[#FFF8F4] transition-colors">Privacy Policy</a></li>
+                <li><a href="#" className="hover:text-[#FFF8F4] transition-colors">Terms of Service</a></li>
+                <li><a href="#" className="hover:text-[#FFF8F4] transition-colors">Accessibility</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="border-t border-white/10 pt-8 text-center text-[#FFF8F4]/60">
+            <p>&copy; {new Date().getFullYear()} EduAccess. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
 
 export default Home;
-
-/* ✅✅✅ COMPONENTS BELOW ✅✅✅ */
-
-
-
-// ✅ Floating Fun Facts
-const FactBubble = ({ fact, delay }) => {
-  const left = Math.random() * 80 + 10;
-  const duration = 15 + Math.random() * 10;
-
-  return (
-    <motion.div
-      className="fixed z-20 pointer-events-none"
-      style={{ left: `${left}%`, bottom: "-100px" }}
-      initial={{ opacity: 0 }}
-      animate={{ y: -window.innerHeight - 200, opacity: [0, 1, 1, 0] }}
-      transition={{ duration, delay, repeat: Infinity, repeatDelay: 20 }}
-    >
-      <div className="bg-white/90 backdrop-blur-sm px-4 py-3 rounded-2xl shadow-lg border-2 border-blue-200">
-        <p className="text-sm font-medium text-gray-700 whitespace-nowrap">{fact}</p>
-      </div>
-    </motion.div>
-  );
-};
-
-
-// ✅ Floating Mascot
-const FloatingMascot = () => (
-  <motion.div className="fixed bottom-8 left-8 z-40" initial={{ scale: 0 }} animate={{ scale: 1 }}>
-    <motion.div
-      className="relative w-24 h-24 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full shadow-2xl flex items-center justify-center"
-      animate={{ y: [0, -15, 0] }}
-      transition={{ duration: 2, repeat: Infinity }}
-    >
-      {/* Eyes */}
-      <div className="absolute top-4 left-6 w-3 h-3 bg-gray-800 rounded-full" />
-      <div className="absolute top-4 right-6 w-3 h-3 bg-gray-800 rounded-full" />
-
-      {/* Smile */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-3xl text-gray-800">
-        😊
-      </div>
-    </motion.div>
-
-    <motion.div
-      className="absolute -top-8 left-1/2 bg-white px-4 py-2 rounded-full shadow-lg"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-    >
-      <p className="text-sm font-bold text-gray-800">Hi Friend!</p>
-    </motion.div>
-  </motion.div>
-);
-
-
-// ✅ Info Item
-const InfoItem = ({ item }) => {
-  const Icon = item.icon;
-  return (
-    <motion.div
-      className="flex items-start gap-4 p-4 bg-white/80 backdrop-blur-sm rounded-xl shadow-lg border border-gray-200 hover:shadow-xl transition-shadow"
-      whileHover={{ y: -5 }}
-    >
-      <Icon className={`w-8 h-8 ${item.color || 'text-blue-600'} mt-1 flex-shrink-0`} />
-      <div>
-        <h3 className="text-lg font-bold text-gray-800">{item.title}</h3>
-        <p className="text-gray-600 text-sm">{item.description}</p>
-      </div>
-    </motion.div>
-  );
-};
-
-// ✅ Particle Background
-const ParticleBackground = () => {
-  const particles = Array.from({ length: 20 }, (_, i) => ({
-    id: i,
-    size: Math.random() * 30 + 10,
-    left: Math.random() * 100,
-    top: Math.random() * 100,
-    duration: Math.random() * 10 + 10,
-  }));
-
-  return (
-    <div className="absolute inset-0 pointer-events-none">
-      {particles.map((p) => (
-        <motion.div
-          key={p.id}
-          className="absolute bg-blue-200 rounded-full opacity-30"
-          style={{
-            width: p.size,
-            height: p.size,
-            left: `${p.left}%`,
-            top: `${p.top}%`,
-          }}
-          animate={{
-            y: [0, -30, 0],
-            x: [0, 15, -15, 0],
-            opacity: [0.2, 0.5, 0.2],
-            scale: [1, 1.2, 1],
-          }}
-          transition={{ duration: p.duration, repeat: Infinity }}
-        />
-      ))}
-    </div>
-  );
-};

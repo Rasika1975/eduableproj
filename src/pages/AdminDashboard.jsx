@@ -29,12 +29,11 @@ const AdminDashboard = () => {
       {/* Page Header */}
       <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <h1 className="text-3xl font-bold">
-            Admin Dashboard
+          <p className="text-xs text-gray-400">Welcome back,</p>
+          <h1 className="text-lg font-bold text-gray-900 dark:text-white">
+            {userName || "Admin"}
           </h1>
-          <p className="text-gray-500 dark:text-gray-400 mt-1">
-            Welcome back, {userName || "Admin"}
-          </p>
+          <p className="text-base text-gray-500 dark:text-gray-400 mt-1">Platform-wide overview and management.</p>
         </div>
       </div>
 
@@ -43,19 +42,19 @@ const AdminDashboard = () => {
         <div className="flex gap-4">
           <button
             onClick={() => setActiveTab('overview')}
-            className={`px-4 py-3 font-semibold ${activeTab === 'overview' ? 'border-b-2 border-blue-600 text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-t-md'}`}
+            className={`px-4 py-3 font-semibold text-sm ${activeTab === 'overview' ? 'border-b-2 border-blue-600 text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-t-md'}`}
           >
             Overview
           </button>
           <button
             onClick={() => setActiveTab('users')}
-            className={`px-4 py-3 font-semibold ${activeTab === 'users' ? 'border-b-2 border-blue-600 text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-t-md'}`}
+            className={`px-4 py-3 font-semibold text-sm ${activeTab === 'users' ? 'border-b-2 border-blue-600 text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-t-md'}`}
           >
             Manage Users
           </button>
           <button
             onClick={() => setActiveTab('settings')}
-            className={`px-4 py-3 font-semibold ${activeTab === 'settings' ? 'border-b-2 border-blue-600 text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-t-md'}`}
+            className={`px-4 py-3 font-semibold text-sm ${activeTab === 'settings' ? 'border-b-2 border-blue-600 text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-t-md'}`}
           >
             System Settings
           </button>

@@ -32,10 +32,11 @@ const ParentDashboard = () => {
       {/* Page Header */}
       <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <h1 className="text-3xl font-bold">
-            Welcome, {userName}
+          <p className="text-xs text-gray-400">Welcome,</p>
+          <h1 className="text-lg font-bold text-gray-900 dark:text-white">
+            {userName}
           </h1>
-          <p className="text-gray-500 dark:text-gray-400 mt-1">
+          <p className="text-base text-gray-500 dark:text-gray-400 mt-1">
             Track Alex's learning journey and progress
           </p>
         </div>
@@ -46,19 +47,19 @@ const ParentDashboard = () => {
         <div className="flex gap-4">
           <button
             onClick={() => setActiveTab('overview')}
-            className={`px-4 py-3 font-semibold ${activeTab === 'overview' ? 'border-b-2 border-blue-600 text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-t-md'}`}
+            className={`px-4 py-3 font-semibold text-sm ${activeTab === 'overview' ? 'border-b-2 border-blue-600 text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-t-md'}`}
           >
             Overview
           </button>
           <button
             onClick={() => setActiveTab('feedback')}
-            className={`px-4 py-3 font-semibold ${activeTab === 'feedback' ? 'border-b-2 border-blue-600 text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-t-md'}`}
+            className={`px-4 py-3 font-semibold text-sm ${activeTab === 'feedback' ? 'border-b-2 border-blue-600 text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-t-md'}`}
           >
             Teacher Feedback
           </button>
           <button
             onClick={() => setActiveTab('activities')}
-            className={`px-4 py-3 font-semibold ${activeTab === 'activities' ? 'border-b-2 border-blue-600 text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-t-md'}`}
+            className={`px-4 py-3 font-semibold text-sm ${activeTab === 'activities' ? 'border-b-2 border-blue-600 text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-t-md'}`}
           >
             Upcoming Activities
           </button>
@@ -108,7 +109,7 @@ const ParentDashboard = () => {
                 </Card>
               </div>
               <Card>
-                <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">Progress by Subject</h2>
+                <h2 className="text-xl font-bold text-gray-800 dark:text-white mb-4">Progress by Subject</h2>
                 <div className="space-y-4">
                   {childProgress.map((subject) => (
                     <div key={subject.id} className="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
@@ -124,7 +125,7 @@ const ParentDashboard = () => {
             </div>
             <div className="space-y-6">
               <Card>
-                <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4 flex items-center">
+                <h2 className="text-xl font-bold text-gray-800 dark:text-white mb-4 flex items-center">
                   <MessageSquare className="w-6 h-6 mr-2 text-green-500" />
                   Latest Feedback
                 </h2>
@@ -135,7 +136,7 @@ const ParentDashboard = () => {
                 </div>
               </Card>
               <Card>
-                <h3 className="text-xl font-bold mb-2 flex items-center"><Award className="w-5 h-5 mr-2 text-yellow-500" />Recent Achievements</h3>
+                <h3 className="text-lg font-semibold leading-snug mb-2 flex items-center"><Award className="w-5 h-5 mr-2 text-yellow-500" />Recent Achievements</h3>
                 <div className="space-y-2 mt-4">
                   <div className="flex items-center space-x-2 bg-gray-100 dark:bg-gray-700 rounded-lg p-2">
                     <Star className="w-5 h-5 text-yellow-500" />

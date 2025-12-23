@@ -36,10 +36,11 @@ const StudentDashboard = () => {
       {/* Page Header */}
       <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <h1 className="text-3xl font-bold">
-            Hello, {userName}!
+          <p className="text-xs text-gray-400">Hello,</p>
+          <h1 className="text-lg font-bold text-gray-900 dark:text-white">
+            {userName}!
           </h1>
-          <p className="text-gray-500 dark:text-gray-400 mt-1">
+          <p className="text-base text-gray-500 dark:text-gray-400 mt-1">
             Ready to learn something amazing today?
           </p>
         </div>
@@ -50,19 +51,19 @@ const StudentDashboard = () => {
         <div className="flex gap-4">
           <button
             onClick={() => setActiveTab('lessons')}
-            className={`px-4 py-3 font-semibold ${activeTab === 'lessons' ? 'border-b-2 border-blue-600 text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-t-md'}`}
+            className={`px-4 py-3 font-semibold text-sm ${activeTab === 'lessons' ? 'border-b-2 border-blue-600 text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-t-md'}`}
           >
             My Lessons
           </button>
           <button
             onClick={() => setActiveTab('achievements')}
-            className={`px-4 py-3 font-semibold ${activeTab === 'achievements' ? 'border-b-2 border-blue-600 text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-t-md'}`}
+            className={`px-4 py-3 font-semibold text-sm ${activeTab === 'achievements' ? 'border-b-2 border-blue-600 text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-t-md'}`}
           >
             Achievements
           </button>
           <button
             onClick={() => setActiveTab('activities')}
-            className={`px-4 py-3 font-semibold ${activeTab === 'activities' ? 'border-b-2 border-blue-600 text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-t-md'}`}
+            className={`px-4 py-3 font-semibold text-sm ${activeTab === 'activities' ? 'border-b-2 border-blue-600 text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-t-md'}`}
           >
             Recent Activities
           </button>
@@ -108,7 +109,7 @@ const StudentDashboard = () => {
           <div className="lg:col-span-2 space-y-6">
             <Card>
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-2xl font-bold text-gray-800 dark:text-white flex items-center">
+                <h2 className="text-xl font-bold text-gray-800 dark:text-white flex items-center">
                   <BookOpen className="w-6 h-6 mr-2 text-blue-500" />
                   My Lessons
                 </h2>
@@ -124,7 +125,7 @@ const StudentDashboard = () => {
                     margin={{ top: 5, right: 20, left: 20, bottom: 5 }}
                   >
                     <XAxis type="number" domain={[0, 100]} hide />
-                    <YAxis dataKey="title" type="category" width={120} tickLine={false} axisLine={false} stroke="#6b7280" fontSize={12} />
+                    <YAxis dataKey="title" type="category" width={150} tickLine={false} axisLine={false} stroke="#6b7280" fontSize={14} style={{ fontWeight: 600 }} />
                     <Tooltip cursor={{fill: 'rgba(243, 244, 246, 0.5)'}} contentStyle={{ backgroundColor: 'white', border: '1px solid #e2e8f0', borderRadius: '0.5rem' }} />
                     <Bar dataKey="progress" barSize={20} radius={[0, 10, 10, 0]} fill="#3b82f6" />
                   </BarChart>
@@ -133,7 +134,7 @@ const StudentDashboard = () => {
             </Card>
 
             <Card>
-              <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4 flex items-center">
+              <h2 className="text-xl font-bold text-gray-800 dark:text-white mb-4 flex items-center">
                 <CheckCircle className="w-6 h-6 mr-2 text-green-500" />
                 Recent Activities
               </h2>
@@ -148,7 +149,7 @@ const StudentDashboard = () => {
                       activity.type === 'achievement' ? 'bg-yellow-500' : 'bg-blue-500'
                     }`} />
                     <div className="flex-1">
-                      <p className="text-sm font-medium text-gray-800 dark:text-white">
+                      <p className="text-sm font-semibold text-gray-800 dark:text-white">
                         {activity.title}
                       </p>
                       <p className="text-xs text-gray-500 dark:text-gray-400">
@@ -163,7 +164,7 @@ const StudentDashboard = () => {
 
           <div className="space-y-6">
             <Card>
-              <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4 flex items-center">
+              <h2 className="text-xl font-bold text-gray-800 dark:text-white mb-4 flex items-center">
                 <Trophy className="w-6 h-6 mr-2 text-yellow-500" />
                 Achievements
               </h2>
@@ -191,7 +192,7 @@ const StudentDashboard = () => {
             </Card>
 
             <Card>
-              <h3 className="text-xl font-bold mb-2">Daily Goal</h3>
+              <h3 className="text-lg font-semibold leading-snug mb-2">Daily Goal</h3>
               <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
                 Complete 3 lessons today to maintain your streak!
               </p>

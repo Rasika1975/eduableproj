@@ -23,10 +23,9 @@ const TeacherDashboard = () => {
       {/* Page Header */}
       <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <h1 className="text-3xl font-bold">Teacher Dashboard</h1>
-          <p className="text-gray-500 dark:text-gray-400 mt-1">
-            Welcome back, {userName || 'Teacher'}
-          </p>
+          <p className="text-xs text-gray-400">Welcome back,</p>
+          <h1 className="text-lg font-bold text-gray-900 dark:text-white">{userName || 'Teacher'}</h1>
+          <p className="text-base text-gray-500 dark:text-gray-400 mt-1">Here's what's happening with your students.</p>
         </div>
       </div>
 
@@ -35,7 +34,7 @@ const TeacherDashboard = () => {
         <div className="flex gap-4">
           <button
             onClick={() => setActiveTab('overview')}
-            className={`px-4 py-3 font-semibold ${
+            className={`px-4 py-3 font-semibold text-sm ${
               activeTab === 'overview'
                 ? 'border-b-2 border-blue-600 text-blue-600 dark:text-blue-400'
                 : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-t-md'
@@ -45,7 +44,7 @@ const TeacherDashboard = () => {
           </button>
           <button
             onClick={() => setActiveTab('students')}
-            className={`px-4 py-3 font-semibold ${
+            className={`px-4 py-3 font-semibold text-sm ${
               activeTab === 'students'
                 ? 'border-b-2 border-blue-600 text-blue-600 dark:text-blue-400'
                 : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-t-md'
@@ -55,7 +54,7 @@ const TeacherDashboard = () => {
           </button>
           <button
             onClick={() => setActiveTab('upload')}
-            className={`px-4 py-3 font-semibold ${
+            className={`px-4 py-3 font-semibold text-sm ${
               activeTab === 'upload'
                 ? 'border-b-2 border-blue-600 text-blue-600 dark:text-blue-400'
                 : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-t-md'
@@ -160,7 +159,7 @@ const TeacherDashboard = () => {
         {activeTab === 'upload' && (
           <Card>
             <div className="max-w-2xl mx-auto">
-              <h2 className="text-2xl font-bold mb-2">Upload New Lesson</h2>
+              <h2 className="text-xl font-bold mb-2">Upload New Lesson</h2>
               <p className="text-gray-600 dark:text-gray-400 mb-6">Create and share educational content with your students</p>
               <form className="space-y-6">
                 <div>

@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AppProvider, useApp } from './contexts/AppContext';
 import Navbar from './components/Navbar';
 import AccessibilityToolbar from './components/AccessibilityToolbar';
@@ -26,6 +26,7 @@ const ProtectedRoute = ({ children, allowedRole }) => {
 
 const AppContent = () => {
   const { fontSize, darkMode, highContrast } = useApp();
+  const location = useLocation();
 
   const fontSizeClasses = {
     normal: 'text-base',
@@ -42,7 +43,7 @@ const AppContent = () => {
       `}
     >
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
-        <Navbar />
+        {location.pathname !== '/' && <Navbar />}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<LoginPage />} />
