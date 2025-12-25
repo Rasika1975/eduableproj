@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useApp } from './contexts/AppContext';
+import { useApp } from '../contexts/AppContext';
 import { motion } from 'framer-motion';
 import { Mail, Lock, User, AlertCircle, CheckCircle, Brain, Target, Users, Award } from 'lucide-react';
 

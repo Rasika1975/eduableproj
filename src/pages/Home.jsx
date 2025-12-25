@@ -40,55 +40,47 @@ const Home = () => {
       icon: BookOpen,
       color: "text-[#7E8BFF]",
       bgColor: "bg-[#7E8BFF]/10",
-      support: ["Dyslexia-friendly fonts", "Text spacing tools", "Audio support"]
+      support: ["Dyslexia-friendly fonts", "Text spacing and line height tools", "Audio narration and text-to-speech support"]
+    },
+    {
+      title: "Dysgraphia",
+      description: "Writing and handwriting skill challenges",
+      icon: FileText,
+      color: "text-[#F8B9A8]",
+      bgColor: "bg-[#F8B9A8]/20",
+      support: ["Handwriting practice guides", "Speech-to-text input support", "Structured writing templates"]
+    },
+    {
+      title: "Dyscalculia",
+      description: "Difficulties with numbers, calculations, and math concepts",
+      icon: BrainCircuit,
+      color: "text-[#FF8A80]",
+      bgColor: "bg-[#FF8A80]/10",
+      support: ["Visual math aids and number lines", "Step-by-step problem breakdowns", "Interactive math practice tools"]
     },
     {
       title: "ADHD",
-      description: "Focus and attention maintenance challenges",
+      description: "Focus, attention, and impulse control challenges",
       icon: Zap,
-      color: "text-[#F8B9A8]",
-      bgColor: "bg-[#F8B9A8]/20",
-      support: ["Structured routines", "Break reminders", "Gamified focus"]
+      color: "text-[#2E2A3F]",
+      bgColor: "bg-[#2E2A3F]/5",
+      support: ["Structured routines and task segmentation", "Break and focus reminders", "Gamified learning and reward systems"]
     },
     {
       title: "Autism (ASD)",
-      description: "Communication and social interaction variations",
+      description: "Communication, social interaction, and sensory processing differences",
       icon: Heart,
-      color: "text-[#FF8A80]",
-      bgColor: "bg-[#FF8A80]/10",
-      support: ["Visual schedules", "Social stories", "Predictable patterns"]
-    },
-    {
-      title: "Visual Impairment",
-      description: "Low vision or blindness",
-      icon: EyeOff,
-      color: "text-[#2E2A3F]",
-      bgColor: "bg-[#2E2A3F]/5",
-      support: ["Screen readers", "Voice navigation", "Braille displays"]
-    },
-    {
-      title: "Hearing Impairment",
-      description: "Hearing loss or deafness",
-      icon: EarOff,
       color: "text-[#C9C4FF]",
       bgColor: "bg-[#C9C4FF]/20",
-      support: ["Visual captions", "Sign language videos", "Written instructions"]
-    },
-    {
-      title: "Speech Disorders",
-      description: "Verbal expression challenges",
-      icon: MessageCircle,
-      color: "text-[#7E8BFF]",
-      bgColor: "bg-[#7E8BFF]/10",
-      support: ["AAC devices", "Text communication", "Symbol boards"]
+      support: ["Visual schedules and cues", "Social stories and behavior modeling", "Predictable learning patterns and routines"]
     }
   ];
 
   const stats = [
-    { icon: Users, number: "10,000+", label: "Active Learners", color: "text-[#7E8BFF]" },
-    { icon: Award, number: "500+", label: "Certified Educators", color: "text-[#2E2A3F]" },
-    { icon: Star, number: "4.9/5", label: "Parent Satisfaction", color: "text-[#F8B9A8]" },
-    { icon: TrendingUp, number: "95%", label: "Milestone Achievement", color: "text-[#FF8A80]" }
+    { icon: Users, number: "10K+", label: "Active Students", color: "text-[#7E8BFF]" },
+    { icon: Award, number: "500+", label: "Expert Teachers", color: "text-[#FF8A80]" },
+    { icon: TrendingUp, number: "95%", label: "Success Rate", color: "text-[#F8B9A8]" },
+    { icon: Star, number: "4.9/5", label: "Parent Satisfaction", color: "text-[#C9C4FF]" },
   ];
 
   return (
@@ -106,54 +98,53 @@ const Home = () => {
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#7E8BFF]/20 rounded-full mb-8">
               <Sparkles className="w-4 h-4 text-[#7E8BFF]" />
-              <span className="text-sm font-semibold text-[#2E2A3F]">Accessible Education for Every Child</span>
+              <span className="text-sm font-semibold text-[#7E8BFF]">AI-Powered Learning Platform</span>
             </div>
 
             <h1 className="text-4xl md:text-6xl font-bold text-[#1F1F2E] mb-6 leading-tight">
-              Transform Learning
+              EduAble
               <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7E8BFF] via-[#FF8A80] to-[#F8B9A8]">
-                For Every Ability
+                Smart Assistive Technologies
               </span>
             </h1>
 
             <p className="text-sm md:text-base text-[#1F1F2E]/80 mb-12 leading-relaxed max-w-2xl mx-auto">
-              Evidence-based, AI-powered educational platform designed specifically for children with diverse learning needs and disabilities.
+              EduAble is an AI-driven assistive learning system that uses smart devices and adaptive tools to make education accessible, affordable, and personalized for differently abled students.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-              <Link to="/signup">
+              <Link to="/signup" className="flex-1 sm:flex-none">
                 <motion.button
-                  className="px-8 py-4 bg-[#7E8BFF] text-white font-semibold rounded-lg shadow-lg hover:bg-[#7E8BFF]/90 transition-all flex items-center gap-2 justify-center text-base"
-                  whileHover={{ scale: 1.02 }}
+                  className="w-full px-8 py-4 bg-[#7E8BFF] text-white font-semibold rounded-lg shadow-lg hover:bg-[#7E8BFF]/90 transition-all flex items-center gap-2 justify-center text-base"
+                  whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  Start Free Trial
+                  Get Started Free
                   <ArrowRight className="w-5 h-5" />
                 </motion.button>
               </Link>
-
-              <Link to="/mock-test">
+              <Link to="/login" className="flex-1 sm:flex-none">
                 <motion.button
-                  className="px-8 py-4 bg-[#FFF8F4] text-[#1F1F2E] font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all flex items-center gap-2 justify-center border-2 border-[#1F1F2E]/10 text-base"
-                  whileHover={{ scale: 1.02 }}
+                  className="w-full px-8 py-4 bg-[#FFF8F4] text-[#1F1F2E] font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all flex items-center gap-2 justify-center border-2 border-[#1F1F2E]/10 text-base"
+                  whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  <FileText className="w-5 h-5" />
-                  Take Assessment Test
+                  Sign In
                 </motion.button>
               </Link>
             </div>
 
             {/* Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {stats.map((stat, idx) => (
                 <motion.div 
                   key={idx}
-                  className="bg-[#FFF8F4] rounded-2xl p-6 shadow-lg border border-transparent"
+                  className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-[#7E8BFF]/20 hover:shadow-xl transition-all"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: idx * 0.1 + 0.5 }}
+                  whileHover={{ y: -5, scale: 1.02 }}
                 >
                   <stat.icon className={`w-8 h-8 mx-auto mb-3 ${stat.color}`} />
                   <div className="text-3xl font-bold text-[#1F1F2E] mb-1">{stat.number}</div>
@@ -181,13 +172,14 @@ const Home = () => {
             {disabilities.map((disability, idx) => (
               <motion.div
                 key={idx}
-                className={`${disability.bgColor} rounded-2xl p-8 border-2 border-transparent hover:border-[#7E8BFF]/30 hover:shadow-xl transition-all`}
+                className={`${disability.bgColor} rounded-2xl p-8 border-2 border-transparent hover:border-[#7E8BFF]/30 hover:shadow-2xl transition-all cursor-pointer group`}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
+                whileHover={{ y: -8, scale: 1.02 }}
               >
-                <disability.icon className={`w-12 h-12 ${disability.color} mb-4`} />
+                <disability.icon className={`w-12 h-12 ${disability.color} mb-4 group-hover:scale-110 transition-transform`} />
                 <h3 className="text-2xl font-bold text-[#1F1F2E] mb-2">
                   {disability.title}
                 </h3>
@@ -233,10 +225,10 @@ const Home = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/mock-test">
+              <Link to="/assessment" className="flex-1 sm:flex-none">
                 <motion.button
-                  className="px-8 py-4 bg-[#FFF8F4] text-[#2E2A3F] font-bold rounded-lg shadow-lg hover:shadow-xl transition-all flex items-center gap-2 justify-center text-lg"
-                  whileHover={{ scale: 1.05 }}
+                  className="w-full px-8 py-4 bg-[#FFF8F4] text-[#2E2A3F] font-bold rounded-lg shadow-lg hover:shadow-xl transition-all flex items-center gap-2 justify-center text-lg"
+                  whileHover={{ scale: 1.05, y: -3 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   Start Assessment
@@ -295,12 +287,15 @@ const Home = () => {
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.15 }}
               >
-                <div className="bg-[#FFF8F4] rounded-2xl p-8 shadow-lg border border-transparent h-full">
+                <motion.div 
+                  className="bg-[#FFF8F4] rounded-2xl p-8 shadow-lg border border-transparent hover:border-[#7E8BFF]/30 h-full hover:shadow-2xl transition-all"
+                  whileHover={{ y: -8 }}
+                >
                   <div className="text-5xl font-bold text-[#7E8BFF]/20 mb-4">{item.step}</div>
                   <item.icon className="w-10 h-10 text-[#7E8BFF] mb-4" />
                   <h3 className="text-xl font-bold text-[#1F1F2E] mb-3">{item.title}</h3>
                   <p className="text-[#1F1F2E]/80 leading-relaxed">{item.desc}</p>
-                </div>
+                </motion.div>
                 
                 {idx < 3 && (
                   <ChevronRight className="hidden md:block absolute -right-4 top-1/2 -translate-y-1/2 w-8 h-8 text-[#7E8BFF]/40" />
@@ -322,21 +317,20 @@ const Home = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/signup">
+            <Link to="/signup" className="flex-1 sm:flex-none">
               <motion.button
-                className="px-10 py-5 bg-[#7E8BFF] text-white font-bold rounded-lg shadow-lg hover:bg-[#7E8BFF]/90 transition-all flex items-center gap-2 justify-center text-base"
-                whileHover={{ scale: 1.05 }}
+                className="w-full px-10 py-5 bg-[#7E8BFF] text-white font-bold rounded-lg shadow-lg hover:shadow-xl transition-all flex items-center gap-2 justify-center text-base"
+                whileHover={{ scale: 1.05, y: -3 }}
                 whileTap={{ scale: 0.95 }}
               >
-                Get Started Free
+                Get Started Now
                 <ArrowRight className="w-5 h-5" />
               </motion.button>
             </Link>
-
-            <Link to="/login">
+            <Link to="/login" className="flex-1 sm:flex-none">
               <motion.button
-                className="px-10 py-5 bg-[#FFF8F4] text-[#1F1F2E] font-bold rounded-lg shadow-lg hover:shadow-xl transition-all flex items-center gap-2 justify-center border-2 border-[#1F1F2E]/10 text-base"
-                whileHover={{ scale: 1.05 }}
+                className="w-full px-10 py-5 bg-[#FFF8F4] text-[#1F1F2E] font-bold rounded-lg shadow-lg hover:shadow-xl transition-all flex items-center gap-2 justify-center border-2 border-[#1F1F2E]/10 text-base"
+                whileHover={{ scale: 1.05, y: -3 }}
                 whileTap={{ scale: 0.95 }}
               >
                 Sign In
@@ -359,7 +353,7 @@ const Home = () => {
                 <div className="w-10 h-10 bg-gradient-to-br from-[#7E8BFF] to-[#C9C4FF] rounded-lg flex items-center justify-center">
                   <span className="text-xl font-bold text-[#2E2A3F]">E</span>
                 </div>
-                <span className="text-2xl font-bold text-white">EduAccess</span>
+                <span className="text-2xl font-bold text-white">EduAble</span>
               </div>
               <p className="text-[#FFF8F4]/70">Making education accessible for every child, regardless of ability.</p>
             </div>
@@ -395,7 +389,7 @@ const Home = () => {
           </div>
 
           <div className="border-t border-white/10 pt-8 text-center text-[#FFF8F4]/60">
-            <p>&copy; {new Date().getFullYear()} EduAccess. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} EduAble. All rights reserved.</p>
           </div>
         </div>
       </footer>

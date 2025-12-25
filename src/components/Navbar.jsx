@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useApp } from '../contexts/AppContext';
-import { Home, LogOut, Settings, Menu, X, ChevronDown } from 'lucide-react';
+import { Home, LogOut, Menu, X, ChevronDown } from 'lucide-react';
 
 const Navbar = () => {
   const { userRole, userName, logout } = useApp();
@@ -119,12 +119,6 @@ const Navbar = () => {
                   aria-label="Dashboard"
                 >
                   <Home className="w-5 h-5 text-gray-600 dark:text-gray-300" />
-                </button>
-                <button
-                  className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition"
-                  aria-label="Settings"
-                >
-                  <Settings className="w-5 h-5 text-gray-600 dark:text-gray-300" />
                 </button>
                 <button
                   onClick={handleLogout}

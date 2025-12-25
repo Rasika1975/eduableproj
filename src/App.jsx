@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AppProvider, useApp } from './contexts/AppContext';
 import Navbar from './components/Navbar';
-import AccessibilityToolbar from './components/AccessibilityToolbar';
 import Home from './pages/Home';
 import StudentDashboard from './pages/StudentDashboard';
 import TeacherDashboard from './pages/TeacherDashboard';
@@ -9,6 +8,7 @@ import ParentDashboard from './pages/ParentDashboard';
 import AdminDashboard from './pages/AdminDashboard';
 import LoginPage from './LoginPage';
 import SignupPage from './SignupPage';
+import Assessment from './test/Assessment';
 
 const ProtectedRoute = ({ children, allowedRole }) => {
   const { userRole } = useApp();
@@ -43,11 +43,12 @@ const AppContent = () => {
       `}
     >
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
-        {location.pathname !== '/' && <Navbar />}
+        {location.pathname !== '/' && location.pathname !== '/login' && location.pathname !== '/signup' && location.pathname !== '/assessment' && <Navbar />}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
+          <Route path="/assessment" element={<Assessment />} />
           <Route
             path="/student"
             element={
@@ -82,7 +83,6 @@ const AppContent = () => {
           />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
-        <AccessibilityToolbar />
       </div>
     </div>
   );
